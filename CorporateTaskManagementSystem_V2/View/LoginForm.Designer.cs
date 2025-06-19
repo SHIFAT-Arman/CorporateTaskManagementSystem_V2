@@ -32,7 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.emailLabel = new System.Windows.Forms.Label();
             this.passwordLabel = new System.Windows.Forms.Label();
-            this.userIdTB = new System.Windows.Forms.TextBox();
+            this.emailTB = new System.Windows.Forms.TextBox();
             this.passwordMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.loginBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
@@ -78,13 +78,13 @@
             this.passwordLabel.TabIndex = 2;
             this.passwordLabel.Text = "Password";
             // 
-            // userIdTB
+            // emailTB
             // 
-            this.userIdTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userIdTB.Location = new System.Drawing.Point(434, 254);
-            this.userIdTB.Name = "userIdTB";
-            this.userIdTB.Size = new System.Drawing.Size(187, 30);
-            this.userIdTB.TabIndex = 3;
+            this.emailTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.emailTB.Location = new System.Drawing.Point(434, 254);
+            this.emailTB.Name = "emailTB";
+            this.emailTB.Size = new System.Drawing.Size(187, 30);
+            this.emailTB.TabIndex = 3;
             // 
             // passwordMaskedTextBox
             // 
@@ -111,7 +111,7 @@
             this.ClientSize = new System.Drawing.Size(1066, 605);
             this.Controls.Add(this.loginBtn);
             this.Controls.Add(this.passwordMaskedTextBox);
-            this.Controls.Add(this.userIdTB);
+            this.Controls.Add(this.emailTB);
             this.Controls.Add(this.passwordLabel);
             this.Controls.Add(this.emailLabel);
             this.Controls.Add(this.panel1);
@@ -132,7 +132,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label emailLabel;
         private System.Windows.Forms.Label passwordLabel;
-        private System.Windows.Forms.TextBox userIdTB;
+        private System.Windows.Forms.TextBox emailTB;
         private System.Windows.Forms.MaskedTextBox passwordMaskedTextBox;
         private System.Windows.Forms.Button loginBtn;
     }

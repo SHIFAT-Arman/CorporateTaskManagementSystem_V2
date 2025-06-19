@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CorporateTaskManagementSystem_V2.Controller;
+using CorporateTaskManagementSystem_V2.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,21 +21,54 @@ namespace CorporateTaskManagementSystem_V2.View
 
         private void loginBtn_Click(object sender, EventArgs e)
         {
-            if(userIdTB.Text == "admin" && passwordMaskedTextBox.Text == "admin")
+            string empEmail = emailTB.Text.Trim();
+            string empPassword = passwordMaskedTextBox.Text.Trim();
+
+
+            LoginController lgc = new LoginController();
+            Login login = lgc.SearchLogin(empEmail);
+
+
+            if (login.EmpEmail.Contains("admin"))
             {
-                DashboardAdmin dashboardAdmin = new DashboardAdmin();
-                dashboardAdmin.Show();
-                this.Hide();
+                login.EmpPosition = "Admin";
             }
-            else if(userIdTB.Text == "employee" && passwordMaskedTextBox.Text == "employee123")
+            else if (login.EmpEmail.Contains("dept"))
             {
-                DashboardEmployee dashboardEmployee = new DashboardEmployee();
-                dashboardEmployee.Show();
-                this.Hide();
+                login.EmpPosition = "Department Head";
             }
-            else
+            else if (login.EmpEmail.Contains("emp"))
             {
-                MessageBox.Show("Invalid User ID or Password", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                login.EmpPosition = "Regular Employee";
+            }
+
+
+            if (login != null)
+            {
+
+                if (login.EmpEmail.Equals(empEmail) && login.EmpPassword.Equals(empPassword) && login.EmpPosition.Equals("Admin"))
+                {
+                    this.Hide();
+                    DashboardAdmin dashboardAdmin = new DashboardAdmin();
+                    dashboardAdmin.Show();
+                }
+                else if (login.EmpEmail.Equals(empEmail) && login.EmpPassword.Equals(empPassword) && login.EmpPosition.Equals("Department Head"))
+                {
+                    this.Hide();
+                    DashboardDepartmentHead dashboardDepartmentHead = new DashboardDepartmentHead();
+                    dashboardDepartmentHead.Show();
+                }
+                else if (login.EmpEmail.Equals(empEmail) && login.EmpPassword.Equals(empPassword) && login.EmpPosition.Equals("Regular Employee"))
+                {
+                    this.Hide();
+                    DashboardEmployee dashboardEmployee = new DashboardEmployee();
+                    dashboardEmployee.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid email or password.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
             }
         }
     }
