@@ -24,7 +24,7 @@ namespace CorporateTaskManagementSystem_V2.View
             string empEmail = emailTB.Text.Trim();
             string empPassword = passwordMaskedTextBox.Text.Trim();
 
-
+            // this is a test edit for tb01 branch
             LoginController lgc = new LoginController();
             Login login = lgc.SearchLogin(empEmail);
 
