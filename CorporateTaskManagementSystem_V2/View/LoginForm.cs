@@ -28,7 +28,6 @@ namespace CorporateTaskManagementSystem_V2.View
             LoginController lgc = new LoginController();
             Login login = lgc.SearchLogin(empEmail);
 
-            // this is a test edit
 
             if (login.EmpEmail.Contains("admin"))
             {
