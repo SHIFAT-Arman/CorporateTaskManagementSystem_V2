@@ -72,7 +72,7 @@ namespace CorporateTaskManagementSystem_V2.Model
 
         public void UpdateTask(Task task)
         {
-            SqlCommand cmd = sda.GetQuery("UPDATE Task SET  taskAssignedDate=@taskAssignedDate, taskStatus=@taskStatus, teamId=@teamId WHERE taskName=@taskName;");
+            SqlCommand cmd = sda.GetQuery("UPDATE Task SET  taskName=@taskName,taskAssignedDate=@taskAssignedDate, taskStatus=@taskStatus, teamId=@teamId WHERE taskId=@taskId;");
            cmd.Parameters.AddWithValue("@taskId", task.TaskId);
             cmd.Parameters.AddWithValue("@taskName", task.TaskName);
             cmd.Parameters.AddWithValue("@taskAssignedDate", task.TaskAssignedDate);
