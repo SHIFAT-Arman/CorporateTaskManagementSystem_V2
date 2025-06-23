@@ -48,5 +48,7 @@ namespace CorporateTaskManagementSystem_V2.View
             adminTask1.Visible = true;
             adminTeam1.Visible = false;
         }
+
+        
     }
 }
