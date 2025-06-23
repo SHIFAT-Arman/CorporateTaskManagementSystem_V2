@@ -49,6 +49,11 @@ namespace CorporateTaskManagementSystem_V2.View
             adminTeam1.Visible = false;
         }
 
-        
+        private void LogoutBtn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+        }
     }
 }
