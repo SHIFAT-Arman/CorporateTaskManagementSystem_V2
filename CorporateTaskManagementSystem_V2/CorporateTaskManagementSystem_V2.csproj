@@ -52,7 +52,10 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\EmployeeController.cs" />
     <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="Model\Employee.cs" />
+    <Compile Include="Model\Employees.cs" />
     <Compile Include="Model\Login.cs" />
     <Compile Include="Model\Logins.cs" />
     <Compile Include="Model\SqlDbDataAccess.cs" />

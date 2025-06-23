@@ -1,14 +1,8 @@
 ﻿using CorporateTaskManagementSystem_V2.Controller;
 using CorporateTaskManagementSystem_V2.Model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Mail;
 
 namespace CorporateTaskManagementSystem_V2.View
 {
@@ -19,33 +13,50 @@ namespace CorporateTaskManagementSystem_V2.View
             InitializeComponent();
         }
 
+        public bool IsValidEmail(string email)
+        {
+            try
+            {
+                MailAddress addr = new MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private void loginBtn_Click(object sender, EventArgs e)
         {
             string empEmail = emailTB.Text.Trim();
             string empPassword = passwordMaskedTextBox.Text.Trim();
+
+            // Validate email format
+            if( IsValidEmail(empEmail) == false)
+            {
+                MessageBox.Show("Please enter a valid email address.", "Invalid Email", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             // this is a test edit for tb01 branch
             // this is edit from sh02 branch
             LoginController lgc = new LoginController();
             Login login = lgc.SearchLogin(empEmail);
 
-
-            if (login.EmpEmail.Contains("admin"))
-            {
-                login.EmpPosition = "Admin";
-            }
-            else if (login.EmpEmail.Contains("dept"))
-            {
-                login.EmpPosition = "Department Head";
-            }
-            else if (login.EmpEmail.Contains("emp"))
-            {
-                login.EmpPosition = "Regular Employee";
-            }
-
-
             if (login != null)
             {
+                if (login.EmpEmail.Contains("admin"))
+                {
+                    login.EmpPosition = "Admin";
+                }
+                else if (login.EmpEmail.Contains("dept"))
+                {
+                    login.EmpPosition = "Department Head";
+                }
+                else if (login.EmpEmail.Contains("emp"))
+                {
+                    login.EmpPosition = "Regular Employee";
+                }
 
                 if (login.EmpEmail.Equals(empEmail) && login.EmpPassword.Equals(empPassword) && login.EmpPosition.Equals("Admin"))
                 {
@@ -69,7 +80,11 @@ namespace CorporateTaskManagementSystem_V2.View
                 {
                     MessageBox.Show("Invalid email or password.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
+
+            }
+            else
+            {
+                MessageBox.Show("Invalid email or password.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
