@@ -34,8 +34,8 @@
             this.teamNameLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.adminTaskSearchbtn = new System.Windows.Forms.Button();
+            this.adminTaskDltbt = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SearchTextBox = new System.Windows.Forms.TextBox();
@@ -102,24 +102,27 @@
             this.button6.TabIndex = 76;
             this.button6.Text = "Refresh";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // button5
+            // adminTaskSearchbtn
             // 
-            this.button5.Location = new System.Drawing.Point(295, 354);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(89, 32);
-            this.button5.TabIndex = 74;
-            this.button5.Text = "Search";
-            this.button5.UseVisualStyleBackColor = true;
+            this.adminTaskSearchbtn.Location = new System.Drawing.Point(295, 354);
+            this.adminTaskSearchbtn.Name = "adminTaskSearchbtn";
+            this.adminTaskSearchbtn.Size = new System.Drawing.Size(89, 32);
+            this.adminTaskSearchbtn.TabIndex = 74;
+            this.adminTaskSearchbtn.Text = "Search";
+            this.adminTaskSearchbtn.UseVisualStyleBackColor = true;
+            this.adminTaskSearchbtn.Click += new System.EventHandler(this.adminTaskSearchbtn_Click);
             // 
-            // button4
+            // adminTaskDltbt
             // 
-            this.button4.Location = new System.Drawing.Point(200, 354);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(89, 32);
-            this.button4.TabIndex = 73;
-            this.button4.Text = "Delete";
-            this.button4.UseVisualStyleBackColor = true;
+            this.adminTaskDltbt.Location = new System.Drawing.Point(200, 354);
+            this.adminTaskDltbt.Name = "adminTaskDltbt";
+            this.adminTaskDltbt.Size = new System.Drawing.Size(89, 32);
+            this.adminTaskDltbt.TabIndex = 73;
+            this.adminTaskDltbt.Text = "Delete";
+            this.adminTaskDltbt.UseVisualStyleBackColor = true;
+            this.adminTaskDltbt.Click += new System.EventHandler(this.adminTaskDltbt_Click);
             // 
             // button3
             // 
@@ -129,6 +132,7 @@
             this.button3.TabIndex = 72;
             this.button3.Text = "Update";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -147,7 +151,8 @@
             this.SearchTextBox.Name = "SearchTextBox";
             this.SearchTextBox.Size = new System.Drawing.Size(229, 32);
             this.SearchTextBox.TabIndex = 75;
-            this.SearchTextBox.Text = "Enter Name";
+            this.SearchTextBox.Text = "Enter valid id";
+            this.SearchTextBox.TextChanged += new System.EventHandler(this.SearchTextBox_TextChanged);
             // 
             // adminTaskGridView1
             // 
@@ -158,6 +163,7 @@
             this.adminTaskGridView1.RowTemplate.Height = 24;
             this.adminTaskGridView1.Size = new System.Drawing.Size(822, 373);
             this.adminTaskGridView1.TabIndex = 70;
+            this.adminTaskGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adminTaskGridView1_CellContentClick);
             // 
             // assignedDt
             // 
@@ -208,8 +214,8 @@
             this.Controls.Add(this.teamNameLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.adminTaskSearchbtn);
+            this.Controls.Add(this.adminTaskDltbt);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.SearchTextBox);
@@ -232,8 +238,8 @@
         private System.Windows.Forms.Label teamNameLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button adminTaskSearchbtn;
+        private System.Windows.Forms.Button adminTaskDltbt;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox SearchTextBox;

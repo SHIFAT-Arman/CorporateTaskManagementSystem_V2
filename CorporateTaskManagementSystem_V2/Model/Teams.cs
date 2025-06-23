@@ -66,10 +66,15 @@ namespace CorporateTaskManagementSystem_V2.Model
                 while (reader.Read())
                 {
                     Team te = new Team();
-                    te.TeamId = reader.GetString(0);
-                    te.TeamName = reader.GetString(1);
-                    te.TeamCreationDate = reader.GetDateTime(2);
-                    te.DeptId = reader.GetString(3);
+                    /* te.TeamId = reader.GetString(0);
+                     te.TeamName = reader.GetString(1);
+                     te.TeamCreationDate = reader.GetDateTime(2);
+                     te.DeptId = reader.GetString(3); */
+
+                    te.TeamId = reader["teamId"].ToString();
+                    te.TeamName = reader["teamName"].ToString();
+                    te.TeamCreationDate = Convert.ToDateTime(reader["teamCreationDate"]);
+                    te.DeptId = reader["deptId"].ToString();
 
                     teamList.Add(te);
                 }
@@ -88,7 +93,7 @@ namespace CorporateTaskManagementSystem_V2.Model
         {
             SqlCommand cmd = sda.GetQuery("SELECT * FROM Team where teamId=@teamId;");
             cmd.Parameters.AddWithValue("@teamId", teamId);
-            List<Team> teamList = new List<Team>();
+            List<Team> teamList = GetData(cmd);
             if (teamList.Count > 0)
             {
                 return teamList[0];
