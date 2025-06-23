@@ -58,6 +58,15 @@
     <Compile Include="Model\Employees.cs" />
     <Compile Include="Model\Login.cs" />
     <Compile Include="Model\Logins.cs" />
+	  <Compile Include="Controller\DepartmentController.cs" />
+
+	  <Compile Include="Controller\TaskController.cs" />
+	  <Compile Include="Model\Department.cs" />
+	  <Compile Include="Model\Departments.cs" />
+	  <Compile Include="Model\Task.cs"/>
+	  <Compile Include="Model\Tasks.cs"/>
+	  <Compile Include="Model\Team.cs"/>
+	  <Compile Include="Model\Teams.cs"/>
     <Compile Include="Model\SqlDbDataAccess.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
