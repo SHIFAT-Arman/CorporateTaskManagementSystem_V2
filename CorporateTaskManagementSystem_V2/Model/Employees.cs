@@ -13,6 +13,7 @@ namespace CorporateTaskManagementSystem_V2.Model
     {
         SqlDbDataAccess sda = new SqlDbDataAccess();
         double val = 0;
+        int nextId = 0;
         public void AddEmployee(Employee employee)
         {
             SqlCommand cmd = sda.GetQuery("INSERT INTO Employee (empId, empFirstName, empLastName, empEmail, empPassword, empDOB, empJoinDate, empPfp, empPosition, empSalary, teamId) VALUES (@empId, @empFirstName, @empLastName, @empEmail, @empPassword, @empDOB, @empJoinDate, @empPfp, @empPosition, @empSalary, @teamId);");
@@ -52,12 +53,60 @@ namespace CorporateTaskManagementSystem_V2.Model
         }
         public void UpdateEmployee(Employee employee)
         {
-            SqlCommand cmd = sda.GetQuery("UPDATE Employee SET empName=@empName");
-        }
+            SqlCommand cmd = sda.GetQuery("UPDATE Employee SET  empFirstName=@empFirstName, empLastName=@empLastName, empEmail=@empEmail, empPassword=@empPassword, empDOB=@empDOB, empJoinDate=@empJoinDate, empPfp=@empPfp, empPosition=@empPosition, empSalary=@empSalary, teamId=@teamId WHERE empId=@empId;");
 
+            
+            cmd.Parameters.AddWithValue("@empFirstName", employee.EmpFirstName);
+            cmd.Parameters.AddWithValue("@empLastName", employee.EmpLastName);
+            cmd.Parameters.AddWithValue("@empEmail", employee.EmpEmail);
+            cmd.Parameters.AddWithValue("@empPassword", employee.EmpPassword);
+            cmd.Parameters.AddWithValue("@empDOB", employee.EmpDOB);
+            cmd.Parameters.AddWithValue("@empJoinDate", employee.EmpJoinDate);
+            if (employee.EmpPfp == null)
+            {
+                employee.EmpPfp = new byte[0]; // Initialize to an empty byte array if null
+                cmd.Parameters.AddWithValue("@empPfp", employee.EmpPfp); // Handle null profile picture
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@empPfp", employee.EmpPfp);
+            }
+            cmd.Parameters.AddWithValue("@empPosition", employee.EmpPosition);
+            cmd.Parameters.AddWithValue("@empSalary", employee.EmpSalary);
+            if (string.IsNullOrEmpty(employee.TeamId))
+            {
+                cmd.Parameters.AddWithValue("@teamId", DBNull.Value); // Handle null team ID
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@teamId", employee.TeamId);
+            }
+            cmd.Parameters.AddWithValue("@empId", employee.EmpId);
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+        } 
+        public void DeleteEmployee(string empId)
+        {
+            SqlCommand cmd = sda.GetQuery("DELETE FROM Employee WHERE empId=@empId;");
+            cmd.Parameters.AddWithValue("@empId", empId);
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+        }
         public List<Employee> GetAllEmployees()
         {
             SqlCommand cmd = sda.GetQuery("SELECT * FROM Employee;");
+            cmd.CommandType = CommandType.Text;
+            return GetData(cmd);
+        }
+        public List<Employee> SearchEmployee(string firstName)
+        {
+            SqlCommand cmd = sda.GetQuery("SELECT * FROM Employee WHERE empFirstName LIKE @firstName;");
+            cmd.Parameters.AddWithValue("@firstName", firstName);
             cmd.CommandType = CommandType.Text;
             return GetData(cmd);
         }
@@ -99,15 +148,20 @@ namespace CorporateTaskManagementSystem_V2.Model
         }
         public string AutoEmpId(string txt)
         {
-            SqlCommand cmd = sda.GetQuery("SELECT COUNT(empId) FROM [Employee]");
+            SqlCommand cmd = sda.GetQuery("SELECT MAX(empId) FROM [Employee]");
 
             cmd.CommandType = CommandType.Text;
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
-            int i = Convert.ToInt32(cmd.ExecuteScalar());
+            string maxId = Convert.ToString(cmd.ExecuteScalar());
+            string numericPart = maxId.Substring(2);
+            if(int.TryParse(numericPart, out int currentMaxId))
+            {
+                nextId = currentMaxId + 1;
+            }
             cmd.Connection.Close();
-            i++;
-            txt = val + i.ToString(); // val is leading zeroes
+            
+            txt = val + nextId.ToString(); // val is leading zeroes
             return "E-" + txt;
         }
     }

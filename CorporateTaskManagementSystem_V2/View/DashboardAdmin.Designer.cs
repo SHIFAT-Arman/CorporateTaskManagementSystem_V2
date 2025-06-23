@@ -30,6 +30,10 @@
         {
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.adminEmployee1 = new CorporateTaskManagementSystem_V2.View.AdminEmployee();
+            this.adminTask1 = new CorporateTaskManagementSystem_V2.View.AdminTask();
+            this.adminTeam1 = new CorporateTaskManagementSystem_V2.View.AdminTeam();
+            this.adminDepartment1 = new CorporateTaskManagementSystem_V2.View.AdminDepartment();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.nameLabel = new System.Windows.Forms.Label();
             this.tasksBtn = new System.Windows.Forms.Button();
@@ -37,12 +41,8 @@
             this.departmentsBtn = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.employeesBtn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.LogoutBtn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.adminEmployee1 = new CorporateTaskManagementSystem_V2.View.AdminEmployee();
-            this.adminTask1 = new CorporateTaskManagementSystem_V2.View.AdminTask();
-            this.adminTeam1 = new CorporateTaskManagementSystem_V2.View.AdminTeam();
-            this.adminDepartment1 = new CorporateTaskManagementSystem_V2.View.AdminDepartment();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -72,6 +72,43 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1549, 896);
             this.panel3.TabIndex = 0;
+            // 
+            // adminEmployee1
+            // 
+            this.adminEmployee1.BackColor = System.Drawing.Color.AliceBlue;
+            this.adminEmployee1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminEmployee1.Location = new System.Drawing.Point(290, 0);
+            this.adminEmployee1.Name = "adminEmployee1";
+            this.adminEmployee1.Size = new System.Drawing.Size(1206, 877);
+            this.adminEmployee1.TabIndex = 2;
+            // 
+            // adminTask1
+            // 
+            this.adminTask1.BackColor = System.Drawing.Color.AliceBlue;
+            this.adminTask1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminTask1.Location = new System.Drawing.Point(318, 0);
+            this.adminTask1.Name = "adminTask1";
+            this.adminTask1.Size = new System.Drawing.Size(827, 776);
+            this.adminTask1.TabIndex = 5;
+            // 
+            // adminTeam1
+            // 
+            this.adminTeam1.BackColor = System.Drawing.Color.AliceBlue;
+            this.adminTeam1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminTeam1.Location = new System.Drawing.Point(318, 0);
+            this.adminTeam1.Margin = new System.Windows.Forms.Padding(4);
+            this.adminTeam1.Name = "adminTeam1";
+            this.adminTeam1.Size = new System.Drawing.Size(827, 776);
+            this.adminTeam1.TabIndex = 4;
+            // 
+            // adminDepartment1
+            // 
+            this.adminDepartment1.BackColor = System.Drawing.Color.AliceBlue;
+            this.adminDepartment1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminDepartment1.Location = new System.Drawing.Point(318, 0);
+            this.adminDepartment1.Name = "adminDepartment1";
+            this.adminDepartment1.Size = new System.Drawing.Size(827, 776);
+            this.adminDepartment1.TabIndex = 3;
             // 
             // pictureBox1
             // 
@@ -157,20 +194,21 @@
             this.employeesBtn.UseVisualStyleBackColor = true;
             this.employeesBtn.Click += new System.EventHandler(this.employeesBtn_Click);
             // 
-            // button1
+            // LogoutBtn
             // 
-            this.button1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(92, 719);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 57);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Logout";
-            this.button1.UseVisualStyleBackColor = true;
+            this.LogoutBtn.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LogoutBtn.Location = new System.Drawing.Point(92, 719);
+            this.LogoutBtn.Name = "LogoutBtn";
+            this.LogoutBtn.Size = new System.Drawing.Size(100, 57);
+            this.LogoutBtn.TabIndex = 1;
+            this.LogoutBtn.Text = "Logout";
+            this.LogoutBtn.UseVisualStyleBackColor = true;
+            this.LogoutBtn.Click += new System.EventHandler(this.LogoutBtn_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.RoyalBlue;
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.LogoutBtn);
             this.panel1.Controls.Add(this.employeesBtn);
             this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.departmentsBtn);
@@ -184,43 +222,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(294, 896);
             this.panel1.TabIndex = 2;
-            // 
-            // adminEmployee1
-            // 
-            this.adminEmployee1.BackColor = System.Drawing.Color.AliceBlue;
-            this.adminEmployee1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminEmployee1.Location = new System.Drawing.Point(290, 0);
-            this.adminEmployee1.Name = "adminEmployee1";
-            this.adminEmployee1.Size = new System.Drawing.Size(1206, 877);
-            this.adminEmployee1.TabIndex = 2;
-            // 
-            // adminTask1
-            // 
-            this.adminTask1.BackColor = System.Drawing.Color.AliceBlue;
-            this.adminTask1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminTask1.Location = new System.Drawing.Point(318, 0);
-            this.adminTask1.Name = "adminTask1";
-            this.adminTask1.Size = new System.Drawing.Size(827, 776);
-            this.adminTask1.TabIndex = 5;
-            // 
-            // adminTeam1
-            // 
-            this.adminTeam1.BackColor = System.Drawing.Color.AliceBlue;
-            this.adminTeam1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminTeam1.Location = new System.Drawing.Point(318, 0);
-            this.adminTeam1.Margin = new System.Windows.Forms.Padding(4);
-            this.adminTeam1.Name = "adminTeam1";
-            this.adminTeam1.Size = new System.Drawing.Size(827, 776);
-            this.adminTeam1.TabIndex = 4;
-            // 
-            // adminDepartment1
-            // 
-            this.adminDepartment1.BackColor = System.Drawing.Color.AliceBlue;
-            this.adminDepartment1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminDepartment1.Location = new System.Drawing.Point(318, 0);
-            this.adminDepartment1.Name = "adminDepartment1";
-            this.adminDepartment1.Size = new System.Drawing.Size(827, 776);
-            this.adminDepartment1.TabIndex = 3;
             // 
             // DashboardAdmin
             // 
@@ -256,7 +257,7 @@
         private System.Windows.Forms.Button departmentsBtn;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button employeesBtn;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button LogoutBtn;
         private System.Windows.Forms.Panel panel1;
     }
 }

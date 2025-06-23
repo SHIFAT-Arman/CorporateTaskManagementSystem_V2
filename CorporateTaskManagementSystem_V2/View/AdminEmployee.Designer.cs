@@ -29,16 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.refreshBtn = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.SearchBtn = new System.Windows.Forms.Button();
+            this.deleteBtn = new System.Windows.Forms.Button();
+            this.updateBtn = new System.Windows.Forms.Button();
             this.AddBtn = new System.Windows.Forms.Button();
             this.uploadBtn = new System.Windows.Forms.Button();
             this.regularEmpRadioButton = new System.Windows.Forms.RadioButton();
             this.deptHeadRadioButton = new System.Windows.Forms.RadioButton();
             this.SearchTextBox = new System.Windows.Forms.TextBox();
             this.choosePositionGroupBox = new System.Windows.Forms.GroupBox();
+            this.adminRadioButton = new System.Windows.Forms.RadioButton();
             this.teamLeadRadioButton = new System.Windows.Forms.RadioButton();
             this.chooseDept = new System.Windows.Forms.Label();
             this.chooseDeptComboBox = new System.Windows.Forms.ComboBox();
@@ -73,7 +75,6 @@
             this.showLinkLabel = new System.Windows.Forms.LinkLabel();
             this.passInfoLabel = new System.Windows.Forms.Label();
             this.passInfoToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.adminRadioButton = new System.Windows.Forms.RadioButton();
             this.pfpFileNameTextBox = new System.Windows.Forms.TextBox();
             this.resetBtn = new System.Windows.Forms.Button();
             this.defaultPictureBox = new System.Windows.Forms.PictureBox();
@@ -89,44 +90,47 @@
             this.refreshBtn.Location = new System.Drawing.Point(1114, 492);
             this.refreshBtn.Name = "refreshBtn";
             this.refreshBtn.Size = new System.Drawing.Size(89, 32);
-            this.refreshBtn.TabIndex = 47;
+            this.refreshBtn.TabIndex = 12;
             this.refreshBtn.Text = "Refresh";
             this.refreshBtn.UseVisualStyleBackColor = true;
             this.refreshBtn.Click += new System.EventHandler(this.refreshBtn_Click);
             // 
-            // button5
+            // SearchBtn
             // 
-            this.button5.Location = new System.Drawing.Point(439, 490);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(89, 32);
-            this.button5.TabIndex = 45;
-            this.button5.Text = "Search";
-            this.button5.UseVisualStyleBackColor = true;
+            this.SearchBtn.Location = new System.Drawing.Point(439, 490);
+            this.SearchBtn.Name = "SearchBtn";
+            this.SearchBtn.Size = new System.Drawing.Size(89, 32);
+            this.SearchBtn.TabIndex = 18;
+            this.SearchBtn.Text = "Search";
+            this.SearchBtn.UseVisualStyleBackColor = true;
+            this.SearchBtn.Click += new System.EventHandler(this.SearchBtn_Click);
             // 
-            // button4
+            // deleteBtn
             // 
-            this.button4.Location = new System.Drawing.Point(297, 492);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(89, 32);
-            this.button4.TabIndex = 44;
-            this.button4.Text = "Delete";
-            this.button4.UseVisualStyleBackColor = true;
+            this.deleteBtn.Location = new System.Drawing.Point(297, 492);
+            this.deleteBtn.Name = "deleteBtn";
+            this.deleteBtn.Size = new System.Drawing.Size(89, 32);
+            this.deleteBtn.TabIndex = 16;
+            this.deleteBtn.Text = "Delete";
+            this.deleteBtn.UseVisualStyleBackColor = true;
+            this.deleteBtn.Click += new System.EventHandler(this.deleteBtn_Click);
             // 
-            // button3
+            // updateBtn
             // 
-            this.button3.Location = new System.Drawing.Point(202, 492);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(89, 32);
-            this.button3.TabIndex = 43;
-            this.button3.Text = "Update";
-            this.button3.UseVisualStyleBackColor = true;
+            this.updateBtn.Location = new System.Drawing.Point(202, 492);
+            this.updateBtn.Name = "updateBtn";
+            this.updateBtn.Size = new System.Drawing.Size(89, 32);
+            this.updateBtn.TabIndex = 15;
+            this.updateBtn.Text = "Update";
+            this.updateBtn.UseVisualStyleBackColor = true;
+            this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
             // 
             // AddBtn
             // 
             this.AddBtn.Location = new System.Drawing.Point(7, 490);
             this.AddBtn.Name = "AddBtn";
             this.AddBtn.Size = new System.Drawing.Size(89, 32);
-            this.AddBtn.TabIndex = 42;
+            this.AddBtn.TabIndex = 13;
             this.AddBtn.Text = "Add";
             this.AddBtn.UseVisualStyleBackColor = true;
             this.AddBtn.Click += new System.EventHandler(this.AddBtn_Click);
@@ -136,7 +140,7 @@
             this.uploadBtn.Location = new System.Drawing.Point(960, 455);
             this.uploadBtn.Name = "uploadBtn";
             this.uploadBtn.Size = new System.Drawing.Size(89, 32);
-            this.uploadBtn.TabIndex = 41;
+            this.uploadBtn.TabIndex = 11;
             this.uploadBtn.Text = "upload";
             this.uploadBtn.UseVisualStyleBackColor = true;
             this.uploadBtn.Click += new System.EventHandler(this.uploadBtn_Click);
@@ -173,8 +177,10 @@
             this.SearchTextBox.Location = new System.Drawing.Point(549, 490);
             this.SearchTextBox.Name = "SearchTextBox";
             this.SearchTextBox.Size = new System.Drawing.Size(229, 30);
-            this.SearchTextBox.TabIndex = 46;
-            this.SearchTextBox.Text = "Enter Name";
+            this.SearchTextBox.TabIndex = 17;
+            this.SearchTextBox.Text = "Search by First Name";
+            this.SearchTextBox.Enter += new System.EventHandler(this.SearchTextBox_Enter);
+            this.SearchTextBox.Leave += new System.EventHandler(this.SearchTextBox_Leave);
             // 
             // choosePositionGroupBox
             // 
@@ -185,9 +191,22 @@
             this.choosePositionGroupBox.Location = new System.Drawing.Point(879, 47);
             this.choosePositionGroupBox.Name = "choosePositionGroupBox";
             this.choosePositionGroupBox.Size = new System.Drawing.Size(324, 111);
-            this.choosePositionGroupBox.TabIndex = 39;
+            this.choosePositionGroupBox.TabIndex = 8;
             this.choosePositionGroupBox.TabStop = false;
             this.choosePositionGroupBox.Text = "Choose Position";
+            // 
+            // adminRadioButton
+            // 
+            this.adminRadioButton.AutoSize = true;
+            this.adminRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminRadioButton.Location = new System.Drawing.Point(157, 83);
+            this.adminRadioButton.Name = "adminRadioButton";
+            this.adminRadioButton.Size = new System.Drawing.Size(70, 22);
+            this.adminRadioButton.TabIndex = 3;
+            this.adminRadioButton.TabStop = true;
+            this.adminRadioButton.Text = "Admin";
+            this.adminRadioButton.UseVisualStyleBackColor = true;
+            this.adminRadioButton.CheckedChanged += new System.EventHandler(this.adminRadioButton_CheckedChanged);
             // 
             // teamLeadRadioButton
             // 
@@ -221,7 +240,7 @@
             this.chooseDeptComboBox.Location = new System.Drawing.Point(1036, 269);
             this.chooseDeptComboBox.Name = "chooseDeptComboBox";
             this.chooseDeptComboBox.Size = new System.Drawing.Size(165, 33);
-            this.chooseDeptComboBox.TabIndex = 37;
+            this.chooseDeptComboBox.TabIndex = 10;
             // 
             // salaryNumericUpDown
             // 
@@ -238,7 +257,7 @@
             0});
             this.salaryNumericUpDown.Name = "salaryNumericUpDown";
             this.salaryNumericUpDown.Size = new System.Drawing.Size(165, 30);
-            this.salaryNumericUpDown.TabIndex = 36;
+            this.salaryNumericUpDown.TabIndex = 7;
             // 
             // salaryLabel
             // 
@@ -268,7 +287,7 @@
             this.chooseTeamComboBox.Location = new System.Drawing.Point(1036, 197);
             this.chooseTeamComboBox.Name = "chooseTeamComboBox";
             this.chooseTeamComboBox.Size = new System.Drawing.Size(165, 33);
-            this.chooseTeamComboBox.TabIndex = 33;
+            this.chooseTeamComboBox.TabIndex = 9;
             // 
             // label3
             // 
@@ -285,7 +304,7 @@
             this.joinDateDateTimePicker.Location = new System.Drawing.Point(386, 337);
             this.joinDateDateTimePicker.Name = "joinDateDateTimePicker";
             this.joinDateDateTimePicker.Size = new System.Drawing.Size(274, 30);
-            this.joinDateDateTimePicker.TabIndex = 31;
+            this.joinDateDateTimePicker.TabIndex = 6;
             // 
             // label2
             // 
@@ -303,14 +322,14 @@
             this.DOBDateTimePicker.MaxDate = new System.DateTime(2030, 12, 25, 23, 59, 59, 0);
             this.DOBDateTimePicker.Name = "DOBDateTimePicker";
             this.DOBDateTimePicker.Size = new System.Drawing.Size(274, 30);
-            this.DOBDateTimePicker.TabIndex = 27;
+            this.DOBDateTimePicker.TabIndex = 5;
             // 
             // lastNameTB
             // 
             this.lastNameTB.Location = new System.Drawing.Point(386, 128);
             this.lastNameTB.Name = "lastNameTB";
             this.lastNameTB.Size = new System.Drawing.Size(274, 30);
-            this.lastNameTB.TabIndex = 29;
+            this.lastNameTB.TabIndex = 2;
             this.lastNameTB.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lastNameTB_MouseClick);
             // 
             // firstNameTB
@@ -318,18 +337,25 @@
             this.firstNameTB.Location = new System.Drawing.Point(43, 128);
             this.firstNameTB.Name = "firstNameTB";
             this.firstNameTB.Size = new System.Drawing.Size(274, 30);
-            this.firstNameTB.TabIndex = 28;
+            this.firstNameTB.TabIndex = 1;
             this.firstNameTB.MouseClick += new System.Windows.Forms.MouseEventHandler(this.firstNameTB_MouseClick);
             // 
             // EmployeeDataGridView
             // 
+            this.EmployeeDataGridView.AllowUserToAddRows = false;
+            this.EmployeeDataGridView.AllowUserToDeleteRows = false;
+            this.EmployeeDataGridView.AllowUserToOrderColumns = true;
             this.EmployeeDataGridView.BackgroundColor = System.Drawing.Color.AliceBlue;
             this.EmployeeDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.EmployeeDataGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.EmployeeDataGridView.GridColor = System.Drawing.Color.MidnightBlue;
             this.EmployeeDataGridView.Location = new System.Drawing.Point(0, 530);
             this.EmployeeDataGridView.Name = "EmployeeDataGridView";
+            this.EmployeeDataGridView.ReadOnly = true;
             this.EmployeeDataGridView.RowHeadersWidth = 51;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
+            this.EmployeeDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.EmployeeDataGridView.RowTemplate.Height = 24;
             this.EmployeeDataGridView.Size = new System.Drawing.Size(1207, 347);
             this.EmployeeDataGridView.TabIndex = 26;
@@ -358,7 +384,7 @@
             this.emailTB.Location = new System.Drawing.Point(43, 233);
             this.emailTB.Name = "emailTB";
             this.emailTB.Size = new System.Drawing.Size(274, 30);
-            this.emailTB.TabIndex = 49;
+            this.emailTB.TabIndex = 3;
             // 
             // emailLabel
             // 
@@ -375,7 +401,7 @@
             this.passwordTB.Name = "passwordTB";
             this.passwordTB.PasswordChar = '*';
             this.passwordTB.Size = new System.Drawing.Size(274, 30);
-            this.passwordTB.TabIndex = 50;
+            this.passwordTB.TabIndex = 4;
             // 
             // passwordLabel
             // 
@@ -548,19 +574,6 @@
             // 
             this.passInfoToolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
-            // adminRadioButton
-            // 
-            this.adminRadioButton.AutoSize = true;
-            this.adminRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminRadioButton.Location = new System.Drawing.Point(157, 83);
-            this.adminRadioButton.Name = "adminRadioButton";
-            this.adminRadioButton.Size = new System.Drawing.Size(70, 22);
-            this.adminRadioButton.TabIndex = 3;
-            this.adminRadioButton.TabStop = true;
-            this.adminRadioButton.Text = "Admin";
-            this.adminRadioButton.UseVisualStyleBackColor = true;
-            this.adminRadioButton.CheckedChanged += new System.EventHandler(this.adminRadioButton_CheckedChanged);
-            // 
             // pfpFileNameTextBox
             // 
             this.pfpFileNameTextBox.Location = new System.Drawing.Point(949, 419);
@@ -574,7 +587,7 @@
             this.resetBtn.Location = new System.Drawing.Point(107, 492);
             this.resetBtn.Name = "resetBtn";
             this.resetBtn.Size = new System.Drawing.Size(89, 32);
-            this.resetBtn.TabIndex = 65;
+            this.resetBtn.TabIndex = 14;
             this.resetBtn.Text = "Reset";
             this.resetBtn.UseVisualStyleBackColor = true;
             this.resetBtn.Click += new System.EventHandler(this.resetBtn_Click);
@@ -613,9 +626,9 @@
             this.Controls.Add(this.emailTB);
             this.Controls.Add(this.emailLabel);
             this.Controls.Add(this.refreshBtn);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.SearchBtn);
+            this.Controls.Add(this.deleteBtn);
+            this.Controls.Add(this.updateBtn);
             this.Controls.Add(this.AddBtn);
             this.Controls.Add(this.uploadBtn);
             this.Controls.Add(this.profilePictureBox);
@@ -640,6 +653,7 @@
             this.Name = "AdminEmployee";
             this.Size = new System.Drawing.Size(1207, 877);
             this.Load += new System.EventHandler(this.AdminEmployee_Load);
+            this.Click += new System.EventHandler(this.AdminEmployee_Click);
             this.choosePositionGroupBox.ResumeLayout(false);
             this.choosePositionGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.salaryNumericUpDown)).EndInit();
@@ -654,9 +668,9 @@
         #endregion
 
         private System.Windows.Forms.Button refreshBtn;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button SearchBtn;
+        private System.Windows.Forms.Button deleteBtn;
+        private System.Windows.Forms.Button updateBtn;
         private System.Windows.Forms.Button AddBtn;
         private System.Windows.Forms.Button uploadBtn;
         private System.Windows.Forms.PictureBox profilePictureBox;
