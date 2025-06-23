@@ -15,7 +15,7 @@ namespace CorporateTaskManagementSystem_V2.Model
 
         public void AddLogin(Login login)
         {
-            SqlCommand cmd = sda.GetQuery("INSERT INTO Logins (empEmail, empPassword) VALUES (@empEmail, @empPassword);");
+            SqlCommand cmd = sda.GetQuery("INSERT INTO Login (empEmail, empPassword) VALUES (@empEmail, @empPassword);");
             cmd.Parameters.AddWithValue("@empEmail", login.EmpEmail);
             cmd.Parameters.AddWithValue("@empPassword", login.EmpPassword);
 
