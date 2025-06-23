@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.label6 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.teamNameTextBox = new System.Windows.Forms.TextBox();
+            this.departmentCombobox = new System.Windows.Forms.ComboBox();
+            this.taskNameTextBox = new System.Windows.Forms.TextBox();
             this.teamNameLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
@@ -39,12 +39,12 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SearchTextBox = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.adminTaskGridView1 = new System.Windows.Forms.DataGridView();
+            this.assignedDt = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.teamcomboBox1 = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.adminTaskGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label6
@@ -56,23 +56,24 @@
             this.label6.TabIndex = 81;
             this.label6.Text = "Choose Dept.";
             // 
-            // comboBox2
+            // departmentCombobox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.departmentCombobox.FormattingEnabled = true;
+            this.departmentCombobox.Items.AddRange(new object[] {
             "IT",
             "HR"});
-            this.comboBox2.Location = new System.Drawing.Point(459, 132);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(271, 32);
-            this.comboBox2.TabIndex = 80;
+            this.departmentCombobox.Location = new System.Drawing.Point(459, 132);
+            this.departmentCombobox.Name = "departmentCombobox";
+            this.departmentCombobox.Size = new System.Drawing.Size(271, 32);
+            this.departmentCombobox.TabIndex = 80;
+            this.departmentCombobox.SelectedIndexChanged += new System.EventHandler(this.departmentCombobox_SelectedIndexChanged);
             // 
-            // teamNameTextBox
+            // taskNameTextBox
             // 
-            this.teamNameTextBox.Location = new System.Drawing.Point(70, 132);
-            this.teamNameTextBox.Name = "teamNameTextBox";
-            this.teamNameTextBox.Size = new System.Drawing.Size(274, 32);
-            this.teamNameTextBox.TabIndex = 79;
+            this.taskNameTextBox.Location = new System.Drawing.Point(70, 132);
+            this.taskNameTextBox.Name = "taskNameTextBox";
+            this.taskNameTextBox.Size = new System.Drawing.Size(274, 32);
+            this.taskNameTextBox.TabIndex = 79;
             // 
             // teamNameLabel
             // 
@@ -137,6 +138,7 @@
             this.button2.TabIndex = 71;
             this.button2.Text = "Add";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // SearchTextBox
             // 
@@ -147,22 +149,22 @@
             this.SearchTextBox.TabIndex = 75;
             this.SearchTextBox.Text = "Enter Name";
             // 
-            // dataGridView1
+            // adminTaskGridView1
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(2, 392);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(822, 373);
-            this.dataGridView1.TabIndex = 70;
+            this.adminTaskGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.adminTaskGridView1.Location = new System.Drawing.Point(2, 392);
+            this.adminTaskGridView1.Name = "adminTaskGridView1";
+            this.adminTaskGridView1.RowHeadersWidth = 51;
+            this.adminTaskGridView1.RowTemplate.Height = 24;
+            this.adminTaskGridView1.Size = new System.Drawing.Size(822, 373);
+            this.adminTaskGridView1.TabIndex = 70;
             // 
-            // dateTimePicker1
+            // assignedDt
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(69, 223);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(275, 32);
-            this.dateTimePicker1.TabIndex = 82;
+            this.assignedDt.Location = new System.Drawing.Point(69, 223);
+            this.assignedDt.Name = "assignedDt";
+            this.assignedDt.Size = new System.Drawing.Size(275, 32);
+            this.assignedDt.TabIndex = 82;
             // 
             // label2
             // 
@@ -182,28 +184,27 @@
             this.label4.TabIndex = 85;
             this.label4.Text = "Choose Team";
             // 
-            // comboBox1
+            // teamcomboBox1
             // 
-            this.comboBox1.Enabled = false;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.teamcomboBox1.FormattingEnabled = true;
+            this.teamcomboBox1.Items.AddRange(new object[] {
             "Website Designer",
             "Data Analyst"});
-            this.comboBox1.Location = new System.Drawing.Point(459, 226);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(271, 32);
-            this.comboBox1.TabIndex = 84;
+            this.teamcomboBox1.Location = new System.Drawing.Point(459, 226);
+            this.teamcomboBox1.Name = "teamcomboBox1";
+            this.teamcomboBox1.Size = new System.Drawing.Size(271, 32);
+            this.teamcomboBox1.TabIndex = 84;
             // 
             // AdminTask
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.teamcomboBox1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.assignedDt);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.teamNameTextBox);
+            this.Controls.Add(this.departmentCombobox);
+            this.Controls.Add(this.taskNameTextBox);
             this.Controls.Add(this.teamNameLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button6);
@@ -212,11 +213,12 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.SearchTextBox);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.adminTaskGridView1);
             this.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "AdminTask";
             this.Size = new System.Drawing.Size(827, 776);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.AdminTask_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.adminTaskGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -225,8 +227,8 @@
         #endregion
 
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.TextBox teamNameTextBox;
+        private System.Windows.Forms.ComboBox departmentCombobox;
+        private System.Windows.Forms.TextBox taskNameTextBox;
         private System.Windows.Forms.Label teamNameLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button6;
@@ -235,10 +237,10 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox SearchTextBox;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DataGridView adminTaskGridView1;
+        private System.Windows.Forms.DateTimePicker assignedDt;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox teamcomboBox1;
     }
 }

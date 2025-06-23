@@ -30,17 +30,17 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.nameLabel = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.employeeTask1 = new CorporateTaskManagementSystem_V2.View.EmployeeTask();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -68,6 +68,15 @@
             this.button5.Text = "Edit Profile";
             this.button5.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(108, 627);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 57);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Logout";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // button2
             // 
             this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightSkyBlue;
@@ -87,6 +96,16 @@
             this.nameLabel.Size = new System.Drawing.Size(72, 28);
             this.nameLabel.TabIndex = 1;
             this.nameLabel.Text = "Name";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::CorporateTaskManagementSystem_V2.Properties.Resources.defaultPfpImage;
+            this.pictureBox1.Location = new System.Drawing.Point(80, 84);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(150, 139);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
             // panel2
             // 
@@ -109,25 +128,6 @@
             this.panel3.Size = new System.Drawing.Size(818, 795);
             this.panel3.TabIndex = 0;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(108, 627);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 57);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Logout";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::CorporateTaskManagementSystem_V2.Properties.Resources.defaultPfpImage;
-            this.pictureBox1.Location = new System.Drawing.Point(80, 84);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(150, 139);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            // 
             // employeeTask1
             // 
             this.employeeTask1.BackColor = System.Drawing.Color.AliceBlue;
@@ -148,9 +148,9 @@
             this.Text = "DashboardEmployee";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
