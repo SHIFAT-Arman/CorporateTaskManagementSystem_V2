@@ -54,19 +54,20 @@
   <ItemGroup>
     <Compile Include="Controller\EmployeeController.cs" />
     <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="Controller\TeamController.cs" />
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\Employees.cs" />
     <Compile Include="Model\Login.cs" />
     <Compile Include="Model\Logins.cs" />
-	  <Compile Include="Controller\DepartmentController.cs" />
-
-	  <Compile Include="Controller\TaskController.cs" />
-	  <Compile Include="Model\Department.cs" />
-	  <Compile Include="Model\Departments.cs" />
-	  <Compile Include="Model\Task.cs"/>
-	  <Compile Include="Model\Tasks.cs"/>
-	  <Compile Include="Model\Team.cs"/>
-	  <Compile Include="Model\Teams.cs"/>
+    <Compile Include="Controller\DepartmentController.cs" />
+    <Compile Include="Controller\TaskController.cs" />
+    <Compile Include="Model\Department.cs" />
+    <Compile Include="Model\Departments.cs" />
+    <Compile Include="Model\Session.cs" />
+    <Compile Include="Model\Task.cs" />
+    <Compile Include="Model\Tasks.cs" />
+    <Compile Include="Model\Team.cs" />
+    <Compile Include="Model\Teams.cs" />
     <Compile Include="Model\SqlDbDataAccess.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,6 +119,18 @@
     <Compile Include="View\DashboardTeamLead.Designer.cs">
       <DependentUpon>DashboardTeamLead.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\EditProfile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\EditProfile.Designer.cs">
+      <DependentUpon>EditProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditProfileV2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\EditProfileV2.Designer.cs">
+      <DependentUpon>EditProfileV2.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\EmployeeTask.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -163,6 +176,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\DashboardTeamLead.resx">
       <DependentUpon>DashboardTeamLead.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\EditProfile.resx">
+      <DependentUpon>EditProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\EditProfileV2.resx">
+      <DependentUpon>EditProfileV2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\EmployeeTask.resx">
       <DependentUpon>EmployeeTask.cs</DependentUpon>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CorporateTaskManagementSystem_V2.Model
+﻿namespace CorporateTaskManagementSystem_V2.Model
 {
     public class Department
     {
@@ -27,7 +21,7 @@ namespace CorporateTaskManagementSystem_V2.Model
         {
 
         }
-        public Department(string deptId,string deptName)
+        public Department(string deptId, string deptName)
         {
             this.deptId = deptId;
             this.deptName = deptName;

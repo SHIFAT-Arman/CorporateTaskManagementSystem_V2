@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CorporateTaskManagementSystem_V2.Model
 {
@@ -19,12 +15,13 @@ namespace CorporateTaskManagementSystem_V2.Model
         private string empPosition;
         private float empSalary;
         private string teamId;
+        private string deptId;
 
         public Employee()
         {
         }
 
-        public Employee(string empId, string empFirstName, string empLastName, string empEmail, string empPassword, DateTime empDOB, DateTime empJoinDate, byte[] empPfp, string empPosition, float empSalary, string teamId)
+        public Employee(string empId, string empFirstName, string empLastName, string empEmail, string empPassword, DateTime empDOB, DateTime empJoinDate, byte[] empPfp, string empPosition, float empSalary, string teamId, string deptId)
         {
             this.empId = empId;
             this.empFirstName = empFirstName;
@@ -37,6 +34,7 @@ namespace CorporateTaskManagementSystem_V2.Model
             this.empPosition = empPosition;
             this.empSalary = empSalary;
             this.teamId = teamId;
+            this.deptId = deptId;
         }
 
         public string EmpId
@@ -93,6 +91,11 @@ namespace CorporateTaskManagementSystem_V2.Model
         {
             get { return teamId; }
             set { teamId = value; }
+        }
+        public string DeptId
+        {
+            get { return deptId; }
+            set { deptId = value; }
         }
     }
 }

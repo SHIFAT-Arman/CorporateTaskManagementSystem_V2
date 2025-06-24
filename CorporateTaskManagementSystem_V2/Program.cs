@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CorporateTaskManagementSystem_V2.View;
+using System;
 using System.Windows.Forms;
-using CorporateTaskManagementSystem_V2.View;
 
 namespace CorporateTaskManagementSystem_V2
 {

@@ -1,9 +1,5 @@
 ﻿using CorporateTaskManagementSystem_V2.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CorporateTaskManagementSystem_V2.Controller
 {
@@ -24,10 +20,10 @@ namespace CorporateTaskManagementSystem_V2.Controller
             Logins logins = new Logins();
             logins.DeleteLogin(empEmail);
         }
-        public Login SearchLogin(string empEmail)
+        public Login SearchLogin(string empId)
         {
             Logins logins = new Logins();
-            Login login = logins.SearchLogin(empEmail);
+            Login login = logins.SearchLogin(empId);
             return login;
         }
 

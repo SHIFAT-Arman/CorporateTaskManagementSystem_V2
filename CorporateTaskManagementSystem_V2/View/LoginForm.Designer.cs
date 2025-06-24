@@ -35,6 +35,9 @@
             this.emailTB = new System.Windows.Forms.TextBox();
             this.passwordMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.loginBtn = new System.Windows.Forms.Button();
+            this.IdTB = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.showLinkLabel = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -105,10 +108,42 @@
             this.loginBtn.UseVisualStyleBackColor = true;
             this.loginBtn.Click += new System.EventHandler(this.loginBtn_Click);
             // 
+            // IdTB
+            // 
+            this.IdTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IdTB.Location = new System.Drawing.Point(434, 207);
+            this.IdTB.Name = "IdTB";
+            this.IdTB.Size = new System.Drawing.Size(187, 30);
+            this.IdTB.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(310, 206);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(31, 25);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "ID";
+            // 
+            // showLinkLabel
+            // 
+            this.showLinkLabel.AutoSize = true;
+            this.showLinkLabel.Location = new System.Drawing.Point(627, 321);
+            this.showLinkLabel.Name = "showLinkLabel";
+            this.showLinkLabel.Size = new System.Drawing.Size(50, 20);
+            this.showLinkLabel.TabIndex = 63;
+            this.showLinkLabel.TabStop = true;
+            this.showLinkLabel.Text = "Show";
+            this.showLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.showLinkLabel_LinkClicked);
+            // 
             // LoginForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1066, 605);
+            this.Controls.Add(this.showLinkLabel);
+            this.Controls.Add(this.IdTB);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.loginBtn);
             this.Controls.Add(this.passwordMaskedTextBox);
             this.Controls.Add(this.emailTB);
@@ -119,6 +154,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "LoginForm";
             this.Text = "LoginForm";
+            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -135,5 +171,8 @@
         private System.Windows.Forms.TextBox emailTB;
         private System.Windows.Forms.MaskedTextBox passwordMaskedTextBox;
         private System.Windows.Forms.Button loginBtn;
+        private System.Windows.Forms.TextBox IdTB;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.LinkLabel showLinkLabel;
     }
 }

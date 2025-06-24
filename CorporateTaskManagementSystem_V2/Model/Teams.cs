@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CorporateTaskManagementSystem_V2.Model;
 
 namespace CorporateTaskManagementSystem_V2.Model
 {
@@ -14,7 +10,7 @@ namespace CorporateTaskManagementSystem_V2.Model
         SqlDbDataAccess sda = new SqlDbDataAccess();
 
 
-        public void AddTask(Team te)
+        public void AddTeam(Team te)
         {
             SqlCommand cmd = sda.GetQuery("INSERT INTO TEAM VALUES(@teamId,@teamName,@teamCreationDate,@deptId);");
             cmd.Parameters.AddWithValue("teamId", te.TeamId);
@@ -47,7 +43,7 @@ namespace CorporateTaskManagementSystem_V2.Model
         public void DeleteTeam(string teamId)
         {
             SqlCommand cmd = sda.GetQuery("DELETE FROM Team WHERE teamId=@teamId;");
-            cmd.Parameters.AddWithValue("@teamId",teamId);
+            cmd.Parameters.AddWithValue("@teamId", teamId);
             cmd.CommandType = CommandType.Text;
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
@@ -82,6 +78,22 @@ namespace CorporateTaskManagementSystem_V2.Model
             }
             return teamList;
         }
+        public List<Team> GetAllTeamByDeptId(string deptId)
+        {
+            SqlCommand cmd = sda.GetQuery("SELECT * FROM Team where deptId=@deptId;");
+            cmd.Parameters.AddWithValue("@deptId", deptId);
+            cmd.CommandType = CommandType.Text;
+            List<Team> teamList = GetData(cmd);
+            return teamList;
+        }
+        public List<Team> GetTeamByDeptName(string deptName)
+        {
+            SqlCommand cmd = sda.GetQuery("SELECT * FROM Team WHERE deptId IN (SELECT deptId FROM Department WHERE deptName=@deptName);");
+            cmd.Parameters.AddWithValue("@deptName", deptName);
+            cmd.CommandType = CommandType.Text;
+            List<Team> teamList = GetData(cmd);
+            return teamList;
+        }
         public List<Team> GetAllTeam()
         {
             SqlCommand cmd = sda.GetQuery("SELECT * FROM Team;");
@@ -102,6 +114,6 @@ namespace CorporateTaskManagementSystem_V2.Model
             {
                 return null;
             }
-      }
+        }
     }
 }

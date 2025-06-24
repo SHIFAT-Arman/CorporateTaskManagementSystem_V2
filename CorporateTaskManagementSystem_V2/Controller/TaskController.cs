@@ -1,16 +1,12 @@
 ﻿using CorporateTaskManagementSystem_V2.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace CorporateTaskManagementSystem_V2.Controller
 {
     class TaskController
     {
-            public void AddTask(Model.Task t)
+        public void AddTask(Model.Task t)
         {
             Tasks tt = new Tasks();
             tt.AddTask(t);

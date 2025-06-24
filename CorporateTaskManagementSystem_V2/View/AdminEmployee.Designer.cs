@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.refreshBtn = new System.Windows.Forms.Button();
             this.SearchBtn = new System.Windows.Forms.Button();
             this.deleteBtn = new System.Windows.Forms.Button();
@@ -234,13 +234,11 @@
             // 
             this.chooseDeptComboBox.Enabled = false;
             this.chooseDeptComboBox.FormattingEnabled = true;
-            this.chooseDeptComboBox.Items.AddRange(new object[] {
-            "IT",
-            "HR"});
             this.chooseDeptComboBox.Location = new System.Drawing.Point(1036, 269);
             this.chooseDeptComboBox.Name = "chooseDeptComboBox";
             this.chooseDeptComboBox.Size = new System.Drawing.Size(165, 33);
             this.chooseDeptComboBox.TabIndex = 10;
+            this.chooseDeptComboBox.SelectedIndexChanged += new System.EventHandler(this.chooseDeptComboBox_SelectedIndexChanged);
             // 
             // salaryNumericUpDown
             // 
@@ -281,9 +279,6 @@
             // 
             this.chooseTeamComboBox.Enabled = false;
             this.chooseTeamComboBox.FormattingEnabled = true;
-            this.chooseTeamComboBox.Items.AddRange(new object[] {
-            "Website Designer",
-            "Data Analyst"});
             this.chooseTeamComboBox.Location = new System.Drawing.Point(1036, 197);
             this.chooseTeamComboBox.Name = "chooseTeamComboBox";
             this.chooseTeamComboBox.Size = new System.Drawing.Size(165, 33);
@@ -353,9 +348,9 @@
             this.EmployeeDataGridView.Name = "EmployeeDataGridView";
             this.EmployeeDataGridView.ReadOnly = true;
             this.EmployeeDataGridView.RowHeadersWidth = 51;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
-            this.EmployeeDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            this.EmployeeDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.EmployeeDataGridView.RowTemplate.Height = 24;
             this.EmployeeDataGridView.Size = new System.Drawing.Size(1207, 347);
             this.EmployeeDataGridView.TabIndex = 26;
@@ -385,6 +380,10 @@
             this.emailTB.Name = "emailTB";
             this.emailTB.Size = new System.Drawing.Size(274, 30);
             this.emailTB.TabIndex = 3;
+            this.passInfoToolTip.SetToolTip(this.emailTB, "Format must be either of three:\r\n<email><E-ID>.emp@gmail.com\r\n<email><E-ID>.dept@" +
+        "gmail.com\r\n<email><E-ID>.admin@gmail.com");
+            this.emailTB.Enter += new System.EventHandler(this.emailTB_Enter);
+            this.emailTB.MouseHover += new System.EventHandler(this.emailTB_MouseHover);
             // 
             // emailLabel
             // 

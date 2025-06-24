@@ -1,9 +1,5 @@
-﻿using System;
+﻿using CorporateTaskManagementSystem_V2.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CorporateTaskManagementSystem_V2.Model;
 
 namespace CorporateTaskManagementSystem_V2.Controller
 {
@@ -30,6 +26,12 @@ namespace CorporateTaskManagementSystem_V2.Controller
         {
             Departments dd = new Departments();
             Department d = dd.SearchDept(deptId);
+            return d;
+        }
+        public Department GetDepartmentByTeamId(string teamId)
+        {
+            Departments dd = new Departments();
+            Department d = dd.GetDepartmentByTeamId(teamId);
             return d;
         }
 
