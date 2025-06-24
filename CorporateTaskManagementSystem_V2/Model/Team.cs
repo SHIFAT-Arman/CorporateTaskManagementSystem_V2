@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CorporateTaskManagementSystem_V2.Model
 {
@@ -38,7 +34,7 @@ namespace CorporateTaskManagementSystem_V2.Model
         {
 
         }
-        public Team(string teamId,string teamName,DateTime teamCreationDate,string deptId)
+        public Team(string teamId, string teamName, DateTime teamCreationDate, string deptId)
         {
             this.teamId = teamId;
             this.teamName = teamName;

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CorporateTaskManagementSystem_V2.Model
+﻿namespace CorporateTaskManagementSystem_V2.Model
 {
     public class Login
     {
+        private string empId;
         private string empEmail;
         private string empPassword;
         private string empPosition;
 
+        public string EmpId
+        {
+            get { return empId; }
+            set { empId = value; }
+        }
         public string EmpEmail
         {
             get { return empEmail; }
@@ -28,8 +28,9 @@ namespace CorporateTaskManagementSystem_V2.Model
             set { empPosition = value; }
         }
 
-        public Login(string empEmail, string empPassword, string empPosition)
+        public Login(string empId, string empEmail, string empPassword, string empPosition)
         {
+            this.empId = empId;
             this.empEmail = empEmail;
             this.empPassword = empPassword;
             this.empPosition = empPosition;

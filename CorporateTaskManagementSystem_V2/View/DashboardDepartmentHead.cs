@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace CorporateTaskManagementSystem_V2.View
 {
@@ -15,6 +7,27 @@ namespace CorporateTaskManagementSystem_V2.View
         public DashboardDepartmentHead()
         {
             InitializeComponent();
+        }
+
+        private void editProfileBtn_Click(object sender, System.EventArgs e)
+        {
+            editProfileV21.Visible = true;
+            adminEmployee1.Visible = false;
+            adminTeam1.Visible = false;
+        }
+
+        private void employeesBtn_Click(object sender, System.EventArgs e)
+        {
+            editProfileV21.Visible = false;
+            adminEmployee1.Visible = true;
+            adminTeam1.Visible = false;
+        }
+
+        private void teamsBtn_Click(object sender, System.EventArgs e)
+        {
+            editProfileV21.Visible = false;
+            adminEmployee1.Visible = false;
+            adminTeam1.Visible = true;
         }
     }
 }

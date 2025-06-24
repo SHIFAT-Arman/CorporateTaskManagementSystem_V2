@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Data;
-using CorporateTaskManagementSystem_V2.Model;
+using System.Data.SqlClient;
 
 namespace CorporateTaskManagementSystem_V2.Model
 {
@@ -15,23 +10,23 @@ namespace CorporateTaskManagementSystem_V2.Model
 
         public void AddLogin(Login login)
         {
-            SqlCommand cmd = sda.GetQuery("INSERT INTO Login (empEmail, empPassword) VALUES (@empEmail, @empPassword);");
+            SqlCommand cmd = sda.GetQuery("INSERT INTO Login (empId, empEmail, empPassword, empPosition) VALUES (@empId, @empEmail, @empPassword, @empPosition);");
+            cmd.Parameters.AddWithValue("@empId", login.EmpId);
             cmd.Parameters.AddWithValue("@empEmail", login.EmpEmail);
             cmd.Parameters.AddWithValue("@empPassword", login.EmpPassword);
 
             if (login.EmpEmail.Contains("admin"))
             {
-                cmd.Parameters.AddWithValue("empPosition", "Admin");
+                cmd.Parameters.AddWithValue("@empPosition", login.EmpPosition);
             }
             else if (login.EmpEmail.Contains("dept"))
             {
-                cmd.Parameters.AddWithValue("empPosition", "Department Head");
-                
+                cmd.Parameters.AddWithValue("@empPosition", login.EmpPosition);
+
             }
             else if (login.EmpEmail.Contains("emp"))
             {
-                cmd.Parameters.AddWithValue("empPosition", "Regular Employee");
-                
+                cmd.Parameters.AddWithValue("@empPosition", login.EmpPosition);
             }
 
             cmd.CommandType = CommandType.Text;
@@ -41,7 +36,9 @@ namespace CorporateTaskManagementSystem_V2.Model
         }
         public void UpdateLogin(Login login)
         {
-            SqlCommand cmd = sda.GetQuery("UPDATE Login SET empPassword = @empPassword WHERE empEmail = @empEmail;");
+            SqlCommand cmd = sda.GetQuery("UPDATE Login SET empEmail=@empEmail, empPassword = @empPassword WHERE empId = @empId;");
+            cmd.Parameters.AddWithValue("@empId", login.EmpId);
+            cmd.Parameters.AddWithValue("@empEmail", login.EmpEmail);
             cmd.Parameters.AddWithValue("@empPassword", login.EmpPassword);
 
             cmd.CommandType = CommandType.Text;
@@ -49,10 +46,11 @@ namespace CorporateTaskManagementSystem_V2.Model
             cmd.ExecuteNonQuery();
             cmd.Connection.Close();
         }
-        public void DeleteLogin(string empEmail)
+        public void DeleteLogin(string empId)
         {
-            SqlCommand cmd = sda.GetQuery("DELETE FROM Logins WHERE empEmail = @empEmail;");
-            cmd.Parameters.AddWithValue("@empEmail", empEmail);
+            SqlCommand cmd = sda.GetQuery("DELETE FROM Login WHERE empId=@empId;");
+            cmd.Parameters.AddWithValue("@empId", empId);
+
             cmd.CommandType = CommandType.Text;
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
@@ -69,8 +67,10 @@ namespace CorporateTaskManagementSystem_V2.Model
                 while (reader.Read())
                 {
                     Login login = new Login();
-                    login.EmpEmail = reader.GetString(0);
-                    login.EmpPassword = reader.GetString(1);
+                    login.EmpId = reader.GetString(0);
+                    login.EmpEmail = reader.GetString(1);
+                    login.EmpPassword = reader.GetString(2);
+                    login.EmpPosition = reader.GetString(3);
 
                     loginList.Add(login);
                 }
@@ -79,10 +79,10 @@ namespace CorporateTaskManagementSystem_V2.Model
             cmd.Connection.Close();
             return loginList;
         }
-        public Login SearchLogin(string empEmail)
+        public Login SearchLogin(string empId)
         {
-            SqlCommand cmd = sda.GetQuery("SELECT * FROM Login WHERE empEmail = @empEmail;");
-            cmd.Parameters.AddWithValue("@empEmail", empEmail);
+            SqlCommand cmd = sda.GetQuery("SELECT * FROM Login WHERE empId=@empId;");
+            cmd.Parameters.AddWithValue("@empId", empId);
 
             cmd.CommandType = CommandType.Text;
             List<Login> loginList = GetData(cmd);
@@ -98,7 +98,7 @@ namespace CorporateTaskManagementSystem_V2.Model
         }
         public List<Login> GetAllLogins()
         {
-            SqlCommand cmd = sda.GetQuery("SELECT * FROM Logins;");
+            SqlCommand cmd = sda.GetQuery("SELECT * FROM Login;");
             cmd.CommandType = CommandType.Text;
             return GetData(cmd);
         }

@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using CorporateTaskManagementSystem_V2.Controller;
 using CorporateTaskManagementSystem_V2.Model;
-using CorporateTaskManagementSystem_V2.Controller;
+using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace CorporateTaskManagementSystem_V2.View
 {
@@ -19,7 +13,7 @@ namespace CorporateTaskManagementSystem_V2.View
         private Departments deps = new Departments();
         private Teams teams = new Teams();
 
-        private bool IsValidTaskFormat( string taskId)
+        private bool IsValidTaskFormat(string taskId)
         {
             string pattern = @"^T-\d{3}$";
             return Regex.IsMatch(taskId, pattern);
@@ -63,40 +57,41 @@ namespace CorporateTaskManagementSystem_V2.View
         private void button2_Click(object sender, EventArgs e)
         {
             try
-             {
+            {
 
-                if (string.IsNullOrWhiteSpace(taskNameTextBox.Text)){
+                if (string.IsNullOrWhiteSpace(taskNameTextBox.Text))
+                {
                     MessageBox.Show("enter task name");
                 }
-                   
-                
-            //string task = taskNameTextBox.Text;
-            string taskId = null;
-            string taskName = taskNameTextBox.Text;
-            // DateTime taskAssignedDate = assignedDt.Text;
 
-            DateTime taskAssignedDate;
-            if (!DateTime.TryParse(assignedDt.Text, out taskAssignedDate))
+
+                //string task = taskNameTextBox.Text;
+                string taskId = null;
+                string taskName = taskNameTextBox.Text;
+                // DateTime taskAssignedDate = assignedDt.Text;
+
+                DateTime taskAssignedDate;
+                if (!DateTime.TryParse(assignedDt.Text, out taskAssignedDate))
+                {
+                    MessageBox.Show("enter valid date");
+                    return;
+                }
+                string taskStatus = "pending";
+                string teamId = Convert.ToString(teamcomboBox1.SelectedValue);
+
+                Model.Task t = new Model.Task(taskId, taskName, taskAssignedDate, taskStatus, teamId);
+                TaskController tc = new TaskController();
+                tc.AddTask(t);
+
+                MessageBox.Show("Task added successfully");
+
+                adminTaskGridView1.DataSource = tc.GetAllTask();
+                adminTaskGridView1.Refresh();
+            }
+            catch (Exception exp)
             {
-                MessageBox.Show("enter valid date");
-                return;
+                MessageBox.Show(exp.StackTrace);
             }
-            string taskStatus = "pending";
-            string teamId = Convert.ToString(teamcomboBox1.SelectedValue);
-
-            Model.Task t = new Model.Task(taskId, taskName, taskAssignedDate, taskStatus, teamId);
-            TaskController tc = new TaskController();
-            tc.AddTask(t);
-
-            MessageBox.Show("Task added successfully");
-
-            adminTaskGridView1.DataSource = tc.GetAllTask();
-            adminTaskGridView1.Refresh();
-            }
-            catch(Exception exp)
-              {
-                MessageBox.Show(exp.StackTrace);    
-              }
         }
 
         private void departmentCombobox_SelectedIndexChanged(object sender, EventArgs e)
@@ -163,7 +158,8 @@ namespace CorporateTaskManagementSystem_V2.View
 
         private void adminTaskSearchbtn_Click(object sender, EventArgs e)
         {
-            try {
+            try
+            {
                 string taskId = SearchTextBox.Text.Trim();
                 if (!IsValidTaskFormat(taskId))
                 {
@@ -312,5 +308,5 @@ namespace CorporateTaskManagementSystem_V2.View
             adminTaskGridView1.DataSource = tc.GetAllTask();
         }
     }
-    }
+}
 

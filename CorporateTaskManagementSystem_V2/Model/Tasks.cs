@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
-using CorporateTaskManagementSystem_V2.Model;
-using System.Runtime.Remoting.Messaging;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.Data.SqlClient;
 
 namespace CorporateTaskManagementSystem_V2.Model
 {
@@ -15,7 +9,7 @@ namespace CorporateTaskManagementSystem_V2.Model
     {
         SqlDbDataAccess sda = new SqlDbDataAccess();
         private const string DefaultTaskId = "T-100";
-        
+
 
         public void AddTask(Task task)
         {
@@ -27,7 +21,7 @@ namespace CorporateTaskManagementSystem_V2.Model
             cmd.Parameters.AddWithValue("@taskName", task.TaskName);
             cmd.Parameters.AddWithValue("@taskAssignedDate", task.TaskAssignedDate);
             cmd.Parameters.AddWithValue("@taskStatus", task.TaskStatus);
-           // cmd.Parameters.AddWithValue("@teamId", (task.TeamId) );
+            // cmd.Parameters.AddWithValue("@teamId", (task.TeamId) );
             if (string.IsNullOrEmpty(task.TeamId))
             {
                 cmd.Parameters.AddWithValue("@teamId", DBNull.Value);
@@ -36,7 +30,7 @@ namespace CorporateTaskManagementSystem_V2.Model
             {
                 cmd.Parameters.AddWithValue("@teamId", task.TeamId);
             }
-            
+
 
             cmd.CommandType = CommandType.Text;
             cmd.Connection.Open();
@@ -52,7 +46,8 @@ namespace CorporateTaskManagementSystem_V2.Model
             using (var cmd = sda.GetQuery(query))
             {
                 cmd.Connection.Open();
-                using (var reader = cmd.ExecuteReader()){
+                using (var reader = cmd.ExecuteReader())
+                {
                     if (reader.Read())
                     {
                         lastId = reader["taskId"].ToString();
@@ -60,7 +55,7 @@ namespace CorporateTaskManagementSystem_V2.Model
                 }
                 cmd.Connection.Close();
 
-                if(lastId.StartsWith("T-")&&int.TryParse(lastId.Substring(2),out var number))
+                if (lastId.StartsWith("T-") && int.TryParse(lastId.Substring(2), out var number))
                 {
                     return $"T-{number + 1}";
 
@@ -73,7 +68,7 @@ namespace CorporateTaskManagementSystem_V2.Model
         public void UpdateTask(Task task)
         {
             SqlCommand cmd = sda.GetQuery("UPDATE Task SET  taskName=@taskName,taskAssignedDate=@taskAssignedDate, taskStatus=@taskStatus, teamId=@teamId WHERE taskId=@taskId;");
-           cmd.Parameters.AddWithValue("@taskId", task.TaskId);
+            cmd.Parameters.AddWithValue("@taskId", task.TaskId);
             cmd.Parameters.AddWithValue("@taskName", task.TaskName);
             cmd.Parameters.AddWithValue("@taskAssignedDate", task.TaskAssignedDate);
             cmd.Parameters.AddWithValue("@taskStatus", task.TaskStatus ?? "Pending");
@@ -112,7 +107,7 @@ namespace CorporateTaskManagementSystem_V2.Model
                     t.TaskAssignedDate = reader.GetDateTime(2);
                     t.TaskStatus = reader.GetString(3);
                     //t.TeamId = reader.GetString(4) as string;
-                    t.TeamId = reader.IsDBNull(4) ? null:reader.GetString(4) ;
+                    t.TeamId = reader.IsDBNull(4) ? null : reader.GetString(4);
 
                     taskList.Add(t);
 
@@ -121,7 +116,7 @@ namespace CorporateTaskManagementSystem_V2.Model
 
                 return taskList;
             }
-                 
+
         }
 
 
@@ -150,6 +145,6 @@ namespace CorporateTaskManagementSystem_V2.Model
             }
 
         }
-       
+
     }
 }

@@ -2,21 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CorporateTaskManagementSystem_V2.Model
 {
     public class Employees
     {
         SqlDbDataAccess sda = new SqlDbDataAccess();
-        double val = 0;
-        int nextId = 0;
         public void AddEmployee(Employee employee)
         {
-            SqlCommand cmd = sda.GetQuery("INSERT INTO Employee (empId, empFirstName, empLastName, empEmail, empPassword, empDOB, empJoinDate, empPfp, empPosition, empSalary, teamId) VALUES (@empId, @empFirstName, @empLastName, @empEmail, @empPassword, @empDOB, @empJoinDate, @empPfp, @empPosition, @empSalary, @teamId);");
+            SqlCommand cmd = sda.GetQuery("INSERT INTO Employee (empId, empFirstName, empLastName, empEmail, empPassword, empDOB, empJoinDate, empPfp, empPosition, empSalary, teamId,deptId) VALUES (@empId, @empFirstName, @empLastName, @empEmail, @empPassword, @empDOB, @empJoinDate, @empPfp, @empPosition, @empSalary, @teamId,@deptId);");
             cmd.Parameters.AddWithValue("@empId", employee.EmpId);
             cmd.Parameters.AddWithValue("@empFirstName", employee.EmpFirstName);
             cmd.Parameters.AddWithValue("@empLastName", employee.EmpLastName);
@@ -29,7 +23,7 @@ namespace CorporateTaskManagementSystem_V2.Model
                 employee.EmpPfp = new byte[0]; // Initialize to an empty byte array if null
 
                 cmd.Parameters.AddWithValue("@empPfp", employee.EmpPfp); // Handle null profile picture
-                 
+
             }
             else
             {
@@ -44,6 +38,14 @@ namespace CorporateTaskManagementSystem_V2.Model
             else
             {
                 cmd.Parameters.AddWithValue("@teamId", employee.TeamId);
+            }
+            if (string.IsNullOrEmpty(employee.DeptId))
+            {
+                cmd.Parameters.AddWithValue("@teamId", DBNull.Value); // Handle null team ID
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@teamId", employee.DeptId);
             }
 
             cmd.CommandType = CommandType.Text;
@@ -53,9 +55,9 @@ namespace CorporateTaskManagementSystem_V2.Model
         }
         public void UpdateEmployee(Employee employee)
         {
-            SqlCommand cmd = sda.GetQuery("UPDATE Employee SET  empFirstName=@empFirstName, empLastName=@empLastName, empEmail=@empEmail, empPassword=@empPassword, empDOB=@empDOB, empJoinDate=@empJoinDate, empPfp=@empPfp, empPosition=@empPosition, empSalary=@empSalary, teamId=@teamId WHERE empId=@empId;");
+            SqlCommand cmd = sda.GetQuery("UPDATE Employee SET  empFirstName=@empFirstName, empLastName=@empLastName, empEmail=@empEmail, empPassword=@empPassword, empDOB=@empDOB, empJoinDate=@empJoinDate, empPfp=@empPfp, empPosition=@empPosition, empSalary=@empSalary, teamId=@teamId, deptId=@deptId WHERE empId=@empId;");
 
-            
+
             cmd.Parameters.AddWithValue("@empFirstName", employee.EmpFirstName);
             cmd.Parameters.AddWithValue("@empLastName", employee.EmpLastName);
             cmd.Parameters.AddWithValue("@empEmail", employee.EmpEmail);
@@ -81,13 +83,21 @@ namespace CorporateTaskManagementSystem_V2.Model
             {
                 cmd.Parameters.AddWithValue("@teamId", employee.TeamId);
             }
+            if (string.IsNullOrEmpty(employee.DeptId))
+            {
+                cmd.Parameters.AddWithValue("@teamId", DBNull.Value); // Handle null team ID
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@teamId", employee.DeptId);
+            }
             cmd.Parameters.AddWithValue("@empId", employee.EmpId);
 
             cmd.CommandType = CommandType.Text;
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
             cmd.Connection.Close();
-        } 
+        }
         public void DeleteEmployee(string empId)
         {
             SqlCommand cmd = sda.GetQuery("DELETE FROM Employee WHERE empId=@empId;");
@@ -103,12 +113,50 @@ namespace CorporateTaskManagementSystem_V2.Model
             cmd.CommandType = CommandType.Text;
             return GetData(cmd);
         }
-        public List<Employee> SearchEmployee(string firstName)
+        public List<Employee> SearchEmployee(string empFirstName)
         {
-            SqlCommand cmd = sda.GetQuery("SELECT * FROM Employee WHERE empFirstName LIKE @firstName;");
-            cmd.Parameters.AddWithValue("@firstName", firstName);
+            SqlCommand cmd = sda.GetQuery("SELECT * FROM Employee WHERE empFirstName=@empFirstName;");
+            cmd.Parameters.AddWithValue("@empFirstName", empFirstName);
             cmd.CommandType = CommandType.Text;
             return GetData(cmd);
+        }
+        public List<Employee> GetDataFromLogin(string empId)
+        {
+            SqlCommand cmd = sda.GetQuery("SELECT * FROM Employee WHERE empId=@empId;");
+            cmd.Parameters.AddWithValue("@empId", empId);
+            cmd.Connection.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<Employee> list = new List<Employee>();
+
+            using (reader)
+            {
+                while (reader.Read())
+                {
+                    byte[] imageData = null;
+                    if (!reader.IsDBNull(7)) // Check if empPfp is not null
+                    {
+                        byte[] imageBytes = (byte[])reader[7];
+                        imageData = imageBytes.Length > 0 ? imageBytes : null; // Handle empty byte array
+                    }
+                    Employee emp = new Employee();
+                    emp.EmpId = reader.GetString(0);
+                    emp.EmpFirstName = reader.GetString(1);
+                    emp.EmpLastName = reader.GetString(2);
+                    emp.EmpEmail = reader.GetString(3);
+                    emp.EmpPassword = reader.GetString(4);
+                    emp.EmpDOB = reader.GetDateTime(5);
+                    emp.EmpJoinDate = reader.GetDateTime(6);
+                    emp.EmpPfp = imageData; // Assign the image data
+                    emp.EmpPosition = reader.GetString(8);
+                    emp.EmpSalary = (float)reader.GetDouble(9);
+                    emp.TeamId = reader.IsDBNull(10) ? null : reader.GetString(10); // Handle null teamId
+                    emp.DeptId = reader.IsDBNull(11) ? null : reader.GetString(11); // Handle null deptId
+                    list.Add(emp);
+                }
+                reader.Close();
+            }
+            cmd.Connection.Close();
+            return list;
         }
         public List<Employee> GetData(SqlCommand cmd)
         {
@@ -119,7 +167,7 @@ namespace CorporateTaskManagementSystem_V2.Model
             //byte[] imageData = cmd.ExecuteScalar() as byte[];
             using (reader)
             {
-                while(reader.Read())
+                while (reader.Read())
                 {
                     byte[] imageData = null;
                     if (!reader.IsDBNull(7)) // Check if empPfp is not null
@@ -153,16 +201,21 @@ namespace CorporateTaskManagementSystem_V2.Model
             cmd.CommandType = CommandType.Text;
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
+
             string maxId = Convert.ToString(cmd.ExecuteScalar());
-            string numericPart = maxId.Substring(2);
-            if(int.TryParse(numericPart, out int currentMaxId))
+
+            int nextId = 1; // Default to 1 if no employees exist
+
+            if (!string.IsNullOrEmpty(maxId) && maxId.StartsWith("E-") && int.TryParse(maxId.Substring(2), out int currentMaxId))
             {
                 nextId = currentMaxId + 1;
             }
+            txt = "E-" + nextId.ToString("D3");
+
             cmd.Connection.Close();
-            
-            txt = val + nextId.ToString(); // val is leading zeroes
-            return "E-" + txt;
+
+
+            return txt;
         }
     }
 }

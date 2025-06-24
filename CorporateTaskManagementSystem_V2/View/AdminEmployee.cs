@@ -2,15 +2,10 @@
 using CorporateTaskManagementSystem_V2.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CorporateTaskManagementSystem_V2.View
@@ -27,7 +22,16 @@ namespace CorporateTaskManagementSystem_V2.View
             try
             {
                 MailAddress addr = new MailAddress(email);
-                return addr.Address == email;
+                // Check if the email address is in a valid format
+                if (addr.Address == email)
+                {
+                    if (email.Contains("emp") || email.Contains("dept") || email.Contains("admin"))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
             }
             catch
             {
@@ -52,35 +56,39 @@ namespace CorporateTaskManagementSystem_V2.View
                 if (EmployeeDataGridView.SelectedCells.Count > 0)
                 {
                     MessageBox.Show("Please RESET the form before adding a new one.", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
                 else
                 {
-
-
                     string empId = empIdTB.Text.Trim();
                     string empFirstName = firstNameTB.Text.Trim();
                     if (!IsValidName(empFirstName)) // Validate first name
                     {
                         firstNameErrorLabel.Text = "First name must start with a capital letter and contain only letters and no spaces.";
                         firstNameErrorLabel.Visible = true;
+                        return;
                     }
                     string empLastName = lastNameTB.Text.Trim();
                     if (!IsValidName(empLastName)) // Validate last name
                     {
                         lastNameErrorLabel.Text = "Last name must start with a capital letter and contain only letters and no spaces.";
                         lastNameErrorLabel.Visible = true;
+                        return;
                     }
                     string empEmail = emailTB.Text.Trim();
                     if (!IsValidEmail(empEmail)) // Validate email format
                     {
                         MessageBox.Show("Please enter a valid email address.", "Invalid Email", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                        passInfoToolTip.Show("Email must contain 'emp', 'dept', or 'admin'.", emailTB, 5000);
+                        return;
                     }
                     string empPassword = passwordTB.Text.Trim();
                     if (!IsValidPassword(empPassword)) // Validate password
                     {
                         passInfoToolTip.Show("Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character.", passInfoLabel, 2000);
+                        return;
                     }
+
 
                     // DOB validation
                     DateTime empDOB = DOBDateTimePicker.Value.Date;
@@ -115,17 +123,23 @@ namespace CorporateTaskManagementSystem_V2.View
                     Console.WriteLine(empPosition);
 
                     byte[] empPfp = InsertImage(pfpFileNameTextBox.Text); // profile picture file
+                    string teamId = chooseTeamComboBox.SelectedValue?.ToString(); // Get the selected team ID from the combo box
 
                     // Initialize empSalary 
                     float empSalary = (float)salaryNumericUpDown.Value;
-                    Console.WriteLine(empId + " " + empFirstName + " " + empLastName + " " + empEmail + " " + empPassword + " " + empDOB + " " + empJoinDate + " " + empPosition + " " + empSalary + " " + empPfp);
+                    Console.WriteLine(empId + " " + empFirstName + " " + empLastName + " " + empEmail + " " + empPassword + " " + empDOB + " " + empJoinDate + " " + empPosition + " " + empSalary + " " + empPfp, teamId);
 
-                    string teamId = null; // for current purpose
+                    string deptId = chooseDeptComboBox.SelectedValue?.ToString(); // Get the selected department ID from the combo box
 
                     EmployeeController empController = new EmployeeController();
-                    Employee employee = new Employee(empId, empFirstName, empLastName, empEmail, empPassword, empDOB, empJoinDate, empPfp, empPosition, empSalary, teamId);
+                    Employee employee = new Employee(empId, empFirstName, empLastName, empEmail, empPassword, empDOB, empJoinDate, empPfp, empPosition, empSalary, teamId, deptId);
+
+                    // Save info to Login Table
+                    LoginController loginController = new LoginController();
+                    Login login = new Login(empId, empEmail, empPassword, empPosition);
 
                     empController.AddEmployee(employee);
+                    loginController.AddLogin(login);
 
                     MessageBox.Show("Employee added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     ClearFields();
@@ -157,8 +171,13 @@ namespace CorporateTaskManagementSystem_V2.View
             deptHeadRadioButton.Checked = false;
             teamLeadRadioButton.Checked = false;
             chooseDeptComboBox.Enabled = false;
+            chooseDeptComboBox.DataSource = null; // Clear the combo box data source
+            chooseDeptComboBox.Items.Clear();
             chooseTeamComboBox.Enabled = false;
+            chooseTeamComboBox.DataSource = null; // Clear the combo box data source
+            chooseTeamComboBox.Items.Clear();
             SearchTextBox.Text = "Search by First Name";
+
         }
 
         public void UpdateEmpId()
@@ -202,11 +221,14 @@ namespace CorporateTaskManagementSystem_V2.View
             EmployeeDataGridView.DataSource = empController.GetAllEmployees();
             EmployeeDataGridView.Refresh();
 
+            EmployeeDataGridView.ClearSelection();
+
         }
 
         private void firstNameTB_MouseClick(object sender, MouseEventArgs e)
         {
             firstNameErrorLabel.Visible = false;
+            EmployeeDataGridView.ClearSelection();
         }
         private void lastNameTB_MouseClick(object sender, MouseEventArgs e)
         {
@@ -231,24 +253,59 @@ namespace CorporateTaskManagementSystem_V2.View
         {
             chooseDeptComboBox.Enabled = true;
             chooseTeamComboBox.Enabled = false;
+
+            // Load departments into the combo box
+            DepartmentController deptController = new DepartmentController();
+            chooseDeptComboBox.DataSource = deptController.GetAllDepartment();
+            chooseDeptComboBox.DisplayMember = "DeptName"; // Assuming DeptName is the property to display
+            chooseDeptComboBox.ValueMember = "DeptId"; // Assuming DeptId is the property to use as value
         }
 
         private void teamLeadRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            chooseDeptComboBox.Enabled = false;
+            chooseDeptComboBox.Enabled = true;
             chooseTeamComboBox.Enabled = true;
+
+            // Load departments into the combo box
+            DepartmentController deptController = new DepartmentController();
+            chooseDeptComboBox.DataSource = deptController.GetAllDepartment();
+            chooseDeptComboBox.DisplayMember = "DeptName"; // Assuming DeptName is the property to display
+            chooseDeptComboBox.ValueMember = "DeptId"; // Assuming DeptId is the property to use as value
+
+            string deptId = chooseDeptComboBox.SelectedValue?.ToString();
+            TeamController teamController = new TeamController();
+            chooseTeamComboBox.DataSource = teamController.GetAllTeamByDeptId(deptId);
+            chooseTeamComboBox.DisplayMember = "TeamName"; // Assuming TeamName is the property to display
+            chooseTeamComboBox.ValueMember = "TeamId"; // Assuming TeamId is the property to use as value
         }
 
         private void regularEmpRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             chooseDeptComboBox.Enabled = true;
             chooseTeamComboBox.Enabled = true;
+
+            // Load departments into the combo box
+            DepartmentController deptController = new DepartmentController();
+            chooseDeptComboBox.DataSource = deptController.GetAllDepartment();
+            chooseDeptComboBox.DisplayMember = "DeptName"; // Assuming DeptName is the property to display
+            chooseDeptComboBox.ValueMember = "DeptId"; // Assuming DeptId is the property to use as value
+
+            string deptId = chooseDeptComboBox.SelectedValue?.ToString();
+            TeamController teamController = new TeamController();
+            chooseTeamComboBox.DataSource = teamController.GetAllTeamByDeptId(deptId);
+            chooseTeamComboBox.DisplayMember = "TeamName"; // Assuming TeamName is the property to display
+            chooseTeamComboBox.ValueMember = "TeamId"; // Assuming TeamId is the property to use as value
         }
 
         private void adminRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             chooseDeptComboBox.Enabled = false;
             chooseTeamComboBox.Enabled = false;
+
+            //clear combobox selection
+            chooseDeptComboBox.DataSource = null; // Clear the combo box data source
+            chooseDeptComboBox.Items.Clear();
+            chooseTeamComboBox.Items.Clear();
         }
 
         private void uploadBtn_Click(object sender, EventArgs e)
@@ -341,8 +398,13 @@ namespace CorporateTaskManagementSystem_V2.View
                 string empId = empIdTB.Text.Trim();
                 if (empId != string.Empty && firstNameTB.Text != string.Empty)
                 {
+                    // Delete From Login Table then Employee Table
+                    LoginController loginController = new LoginController();
+                    loginController.DeleteLogin(empId);
+
                     EmployeeController empController = new EmployeeController();
                     empController.DeleteEmployee(empId);
+
 
                     MessageBox.Show("Employee deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     resetBtn_Click(sender, e); // Reset fields after deletion
@@ -375,7 +437,7 @@ namespace CorporateTaskManagementSystem_V2.View
                 profilePictureBox.Image.Save(ms, profilePictureBox.Image.RawFormat);
                 return ms.GetBuffer();
             }
-            
+
         }
 
         private void updateBtn_Click(object sender, EventArgs e)
@@ -388,23 +450,26 @@ namespace CorporateTaskManagementSystem_V2.View
                 {
                     firstNameErrorLabel.Text = "First name must start with a capital letter and contain only letters and no spaces.";
                     firstNameErrorLabel.Visible = true;
+                    return;
                 }
                 string empLastName = lastNameTB.Text.Trim();
                 if (!IsValidName(empLastName)) // Validate last name
                 {
                     lastNameErrorLabel.Text = "Last name must start with a capital letter and contain only letters and no spaces.";
                     lastNameErrorLabel.Visible = true;
+                    return;
                 }
                 string empEmail = emailTB.Text.Trim();
                 if (!IsValidEmail(empEmail)) // Validate email format
                 {
                     MessageBox.Show("Please enter a valid email address.", "Invalid Email", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    return;
                 }
                 string empPassword = passwordTB.Text.Trim();
                 if (!IsValidPassword(empPassword)) // Validate password
                 {
                     passInfoToolTip.Show("Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character.", passInfoLabel, 2000);
+                    return;
                 }
 
                 // DOB validation
@@ -446,12 +511,18 @@ namespace CorporateTaskManagementSystem_V2.View
                 float empSalary = (float)salaryNumericUpDown.Value;
                 Console.WriteLine(empId + " " + empFirstName + " " + empLastName + " " + empEmail + " " + empPassword + " " + empDOB + " " + empJoinDate + " " + empPosition + " " + empSalary + " " + empPfp);
 
-                string teamId = null; // for current purpose
+                string teamId = chooseTeamComboBox.SelectedValue?.ToString(); // Get the selected team ID from the combo box
+
+                string deptId = chooseDeptComboBox.SelectedValue?.ToString(); // Get the selected department ID from the combo box
 
                 EmployeeController empController = new EmployeeController();
-                Employee employee = new Employee(empId, empFirstName, empLastName, empEmail, empPassword, empDOB, empJoinDate, empPfp, empPosition, empSalary, teamId);
+                Employee employee = new Employee(empId, empFirstName, empLastName, empEmail, empPassword, empDOB, empJoinDate, empPfp, empPosition, empSalary, teamId, deptId);
 
                 empController.UpdateEmployee(employee);
+
+                LoginController loginController = new LoginController();
+                Login login = new Login(empId, empEmail, empPassword, empPosition);
+                loginController.UpdateLogin(login);
 
                 MessageBox.Show("Employee Updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 ClearFields();
@@ -472,13 +543,13 @@ namespace CorporateTaskManagementSystem_V2.View
 
         private void SearchTextBox_Leave(object sender, EventArgs e)
         {
-            if(SearchTextBox.Text == string.Empty)
+            if (SearchTextBox.Text == string.Empty)
             {
                 SearchTextBox.Text = "Search by First Name";
             }
             else
             {
-                 SearchTextBox.Text = SearchTextBox.Text.Trim();
+                SearchTextBox.Text = SearchTextBox.Text.Trim();
             }
 
         }
@@ -490,7 +561,7 @@ namespace CorporateTaskManagementSystem_V2.View
 
         private void SearchBtn_Click(object sender, EventArgs e)
         {
-            string firstName= SearchTextBox.Text.Trim();
+            string firstName = SearchTextBox.Text.Trim();
             EmployeeController empController = new EmployeeController();
             List<Employee> employees = empController.SearchEmployee(firstName);
             if (employees.Count > 0)
@@ -505,6 +576,48 @@ namespace CorporateTaskManagementSystem_V2.View
             }
         }
 
-        
+        private void chooseTeamComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chooseDeptComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string deptId = chooseDeptComboBox.SelectedValue?.ToString();
+            TeamController teamController = new TeamController();
+            if (deptId != null && chooseTeamComboBox.Enabled != false)
+            {
+                List<Team> teams = teamController.GetAllTeamByDeptId(deptId);
+                if (teams.Count > 0)
+                {
+                    chooseTeamComboBox.DataSource = teamController.GetAllTeamByDeptId(deptId);
+                    chooseTeamComboBox.DisplayMember = "TeamName"; // Assuming TeamName is the property to display
+                    chooseTeamComboBox.ValueMember = "TeamId"; // Assuming TeamId is the property to use as value
+                    chooseTeamComboBox.Refresh(); // Refresh the combo box to show updated data
+                }
+                else
+                {
+                    chooseTeamComboBox.DataSource = null; // Clear the combo box if no teams found
+                    chooseTeamComboBox.Items.Clear();
+                    chooseTeamComboBox.DisplayMember = null;
+
+                }
+            }
+            else
+            {
+                chooseTeamComboBox.DataSource = null; // Clear the combo box if no department is selected
+                chooseTeamComboBox.Items.Clear();
+            }
+        }
+
+        private void emailTB_MouseHover(object sender, EventArgs e)
+        {
+            passInfoToolTip.Show("Format must be either of three:\r\n<email><E-ID>.emp@gmail.com\r\n<email><E-ID>..dept@gmail.com\r\n<email><E-ID>..admin@gmail.com", emailTB, 5000);
+        }
+
+        private void emailTB_Enter(object sender, EventArgs e)
+        {
+            passInfoToolTip.Show("Format must be either of three:\r\n<email><E-ID>.emp@gmail.com\r\n<email><E-ID>..dept@gmail.com\r\n<email><E-ID>..admin@gmail.com", emailTB, 5000);
+        }
     }
 }
