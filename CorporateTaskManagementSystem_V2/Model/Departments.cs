@@ -99,7 +99,7 @@ namespace CorporateTaskManagementSystem_V2.Model
         }
         public List<Department> GetAllDeptByDeptName(string deptName)
         {
-            SqlCommand cmd = sda.GetQuery("SELECT * FROM Department WHERE deptName LIKE '%' + @deptName + '%'");
+            SqlCommand cmd = sda.GetQuery("SELECT * FROM Department WHERE deptName LIKE '%' + @deptName + '%';");
             cmd.Parameters.AddWithValue("@deptName", deptName);
             cmd.CommandType = CommandType.Text;
             List<Department> deptList = GetData(cmd);
@@ -136,7 +136,7 @@ namespace CorporateTaskManagementSystem_V2.Model
             {
                 nextId = currentMaxId + 1;
             }
-            txt = "E-" + nextId.ToString("D3");
+            txt = "D-" + nextId.ToString("D3");
 
             cmd.Connection.Close();
 

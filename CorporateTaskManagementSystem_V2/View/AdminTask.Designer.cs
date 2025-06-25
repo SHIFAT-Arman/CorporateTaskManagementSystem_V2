@@ -50,7 +50,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(455, 104);
+            this.label6.Location = new System.Drawing.Point(814, 104);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(128, 24);
             this.label6.TabIndex = 81;
@@ -62,23 +62,23 @@
             this.departmentCombobox.Items.AddRange(new object[] {
             "IT",
             "HR"});
-            this.departmentCombobox.Location = new System.Drawing.Point(459, 132);
+            this.departmentCombobox.Location = new System.Drawing.Point(818, 132);
             this.departmentCombobox.Name = "departmentCombobox";
-            this.departmentCombobox.Size = new System.Drawing.Size(271, 32);
+            this.departmentCombobox.Size = new System.Drawing.Size(284, 32);
             this.departmentCombobox.TabIndex = 80;
             this.departmentCombobox.SelectedIndexChanged += new System.EventHandler(this.departmentCombobox_SelectedIndexChanged);
             // 
             // taskNameTextBox
             // 
-            this.taskNameTextBox.Location = new System.Drawing.Point(70, 132);
+            this.taskNameTextBox.Location = new System.Drawing.Point(105, 132);
             this.taskNameTextBox.Name = "taskNameTextBox";
-            this.taskNameTextBox.Size = new System.Drawing.Size(274, 32);
+            this.taskNameTextBox.Size = new System.Drawing.Size(337, 32);
             this.taskNameTextBox.TabIndex = 79;
             // 
             // teamNameLabel
             // 
             this.teamNameLabel.AutoSize = true;
-            this.teamNameLabel.Location = new System.Drawing.Point(65, 104);
+            this.teamNameLabel.Location = new System.Drawing.Point(100, 104);
             this.teamNameLabel.Name = "teamNameLabel";
             this.teamNameLabel.Size = new System.Drawing.Size(109, 24);
             this.teamNameLabel.TabIndex = 78;
@@ -88,7 +88,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Bahnschrift", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(332, 11);
+            this.label1.Location = new System.Drawing.Point(522, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 36);
             this.label1.TabIndex = 77;
@@ -96,7 +96,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(719, 353);
+            this.button6.Location = new System.Drawing.Point(1096, 354);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(89, 32);
             this.button6.TabIndex = 76;
@@ -106,7 +106,7 @@
             // 
             // adminTaskSearchbtn
             // 
-            this.adminTaskSearchbtn.Location = new System.Drawing.Point(295, 354);
+            this.adminTaskSearchbtn.Location = new System.Drawing.Point(457, 354);
             this.adminTaskSearchbtn.Name = "adminTaskSearchbtn";
             this.adminTaskSearchbtn.Size = new System.Drawing.Size(89, 32);
             this.adminTaskSearchbtn.TabIndex = 74;
@@ -147,9 +147,9 @@
             // SearchTextBox
             // 
             this.SearchTextBox.ForeColor = System.Drawing.Color.Silver;
-            this.SearchTextBox.Location = new System.Drawing.Point(390, 354);
+            this.SearchTextBox.Location = new System.Drawing.Point(552, 355);
             this.SearchTextBox.Name = "SearchTextBox";
-            this.SearchTextBox.Size = new System.Drawing.Size(229, 32);
+            this.SearchTextBox.Size = new System.Drawing.Size(390, 32);
             this.SearchTextBox.TabIndex = 75;
             this.SearchTextBox.Text = "Enter valid id";
             this.SearchTextBox.TextChanged += new System.EventHandler(this.SearchTextBox_TextChanged);
@@ -162,21 +162,21 @@
             this.adminTaskGridView1.ReadOnly = true;
             this.adminTaskGridView1.RowHeadersWidth = 51;
             this.adminTaskGridView1.RowTemplate.Height = 24;
-            this.adminTaskGridView1.Size = new System.Drawing.Size(822, 373);
+            this.adminTaskGridView1.Size = new System.Drawing.Size(1202, 485);
             this.adminTaskGridView1.TabIndex = 70;
             this.adminTaskGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adminTaskGridView1_CellContentClick);
             // 
             // assignedDt
             // 
-            this.assignedDt.Location = new System.Drawing.Point(69, 223);
+            this.assignedDt.Location = new System.Drawing.Point(104, 223);
             this.assignedDt.Name = "assignedDt";
-            this.assignedDt.Size = new System.Drawing.Size(275, 32);
+            this.assignedDt.Size = new System.Drawing.Size(338, 32);
             this.assignedDt.TabIndex = 82;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(65, 196);
+            this.label2.Location = new System.Drawing.Point(101, 196);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(117, 24);
             this.label2.TabIndex = 83;
@@ -185,7 +185,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(455, 199);
+            this.label4.Location = new System.Drawing.Point(814, 199);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(129, 24);
             this.label4.TabIndex = 85;
@@ -197,9 +197,9 @@
             this.teamcomboBox1.Items.AddRange(new object[] {
             "Website Designer",
             "Data Analyst"});
-            this.teamcomboBox1.Location = new System.Drawing.Point(459, 226);
+            this.teamcomboBox1.Location = new System.Drawing.Point(818, 226);
             this.teamcomboBox1.Name = "teamcomboBox1";
-            this.teamcomboBox1.Size = new System.Drawing.Size(271, 32);
+            this.teamcomboBox1.Size = new System.Drawing.Size(284, 32);
             this.teamcomboBox1.TabIndex = 84;
             // 
             // AdminTask
@@ -223,7 +223,7 @@
             this.Controls.Add(this.adminTaskGridView1);
             this.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "AdminTask";
-            this.Size = new System.Drawing.Size(827, 776);
+            this.Size = new System.Drawing.Size(1207, 877);
             this.Load += new System.EventHandler(this.AdminTask_Load);
             ((System.ComponentModel.ISupportInitialize)(this.adminTaskGridView1)).EndInit();
             this.ResumeLayout(false);

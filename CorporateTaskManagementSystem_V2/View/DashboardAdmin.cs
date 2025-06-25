@@ -100,7 +100,7 @@ namespace CorporateTaskManagementSystem_V2.View
 
         public void DashboardAdmin_Load(object sender, EventArgs e)
         {
-
+            positionLabel.Text = "Admin";
         }
     }
 }

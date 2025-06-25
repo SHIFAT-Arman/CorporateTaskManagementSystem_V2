@@ -180,5 +180,16 @@ namespace CorporateTaskManagementSystem_V2.View
 
             }
         }
+
+        private void eTaskSearchTextBox_Enter(object sender, EventArgs e)
+        {
+            eTaskSearchTextBox.Clear();
+            eTaskSearchTextBox.ForeColor= System.Drawing.Color.Black;
+        }
+
+        private void eTaskSearchTextBox_Leave(object sender, EventArgs e)
+        {
+            eTaskSearchTextBox.Text = "Enter Task ID (e.g., T-123)";
+        }
     }
 }

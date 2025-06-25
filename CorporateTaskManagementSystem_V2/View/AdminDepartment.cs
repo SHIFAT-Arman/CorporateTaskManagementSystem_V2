@@ -2,6 +2,7 @@
 using CorporateTaskManagementSystem_V2.Model;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace CorporateTaskManagementSystem_V2.View
@@ -52,6 +53,16 @@ namespace CorporateTaskManagementSystem_V2.View
 
         }
 
+        private bool IsValidDeptName(string deptName)
+        {
+            if (string.IsNullOrWhiteSpace(deptName))
+                return false;
+
+            // Pattern: letters and spaces
+            Regex regex = new Regex(@"^[a-zA-Z\s]*$");
+            return regex.IsMatch(deptName);
+        }
+
         private void AddBtn_Click(object sender, EventArgs e)
         {
             try
@@ -63,9 +74,9 @@ namespace CorporateTaskManagementSystem_V2.View
                 }
                 string deptId = deptIdTB.Text.Trim();
                 string deptName = deptNameTextBox.Text.Trim();
-                if (string.IsNullOrEmpty(deptName))
+                if (!IsValidDeptName(deptName))
                 {
-                    MessageBox.Show("Department Name cannot be empty!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Department name can only contain letter and spaces", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 DateTime deptCreationDate = deptCreationDateTimePicker.Value.Date;
@@ -82,6 +93,7 @@ namespace CorporateTaskManagementSystem_V2.View
 
                 ClearFields();
                 UpdateDeptId();
+                RefreshBtn.PerformClick();
             }
             catch (Exception ex)
             {
@@ -122,6 +134,7 @@ namespace CorporateTaskManagementSystem_V2.View
 
                 ClearFields();
                 UpdateDeptId();
+                RefreshBtn.PerformClick(); // Refresh the DataGridView to show updated data
 
             }
             catch (Exception ex)
@@ -154,6 +167,7 @@ namespace CorporateTaskManagementSystem_V2.View
 
                 ClearFields();
                 UpdateDeptId();
+                RefreshBtn.PerformClick();
             }
             catch (Exception ex)
             {
@@ -192,17 +206,26 @@ namespace CorporateTaskManagementSystem_V2.View
         private void SearchTextBox_Enter(object sender, EventArgs e)
         {
             SearchTextBox.Clear();
+            SearchTextBox.ForeColor = System.Drawing.Color.Black; 
         }
 
         private void SearchTextBox_Leave(object sender, EventArgs e)
         {
-            SearchTextBox.Text = "Search by Department Name";
+            if (SearchTextBox.Text == string.Empty)
+            {
+                SearchTextBox.Text = "Search by Department Name";
+            }
+            else
+            {
+                SearchTextBox.Text = SearchTextBox.Text.Trim();
+            }
         }
 
         private void RefreshBtn_Click(object sender, EventArgs e)
         {
             DepartmentController departmentController = new DepartmentController();
             DepartmentDataGridView.DataSource = departmentController.GetAllDepartment();
+            DepartmentDataGridView.ClearSelection();
             DepartmentDataGridView.Refresh();
         }
 
@@ -220,19 +243,30 @@ namespace CorporateTaskManagementSystem_V2.View
 
         private void DepartmentDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
-            if (e.RowIndex >= 0 && e.RowIndex < DepartmentDataGridView.Rows.Count)
+            try
             {
-                DataGridViewRow row = DepartmentDataGridView.Rows[e.RowIndex];
-                deptIdTB.Text = row.Cells["DeptId"].Value.ToString();
-                deptNameTextBox.Text = row.Cells["DeptName"].Value.ToString();
-                deptCreationDateTimePicker.Value = Convert.ToDateTime(row.Cells["DeptCreationDate"].Value);
+                if (e.RowIndex >= 0 && e.RowIndex < DepartmentDataGridView.Rows.Count)
+                {
+                    DataGridViewRow row = DepartmentDataGridView.Rows[e.RowIndex];
+                    deptIdTB.Text = row.Cells["DeptId"].Value.ToString();
+                    deptNameTextBox.Text = row.Cells["DeptName"].Value.ToString();
+                    deptCreationDateTimePicker.Value = Convert.ToDateTime(row.Cells["DeptCreationDate"].Value);
+                }
+                else
+                {
+                    MessageBox.Show("Please select a valid department.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("Please select a valid department.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("An error occurred while selecting the department: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        private void deptNameTextBox_Enter(object sender, EventArgs e)
+        {
+            DepartmentDataGridView.ClearSelection();
         }
     }
 }

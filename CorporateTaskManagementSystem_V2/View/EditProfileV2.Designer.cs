@@ -366,6 +366,7 @@
             // 
             // chooseDeptComboBox
             // 
+            this.chooseDeptComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.chooseDeptComboBox.Enabled = false;
             this.chooseDeptComboBox.FormattingEnabled = true;
             this.chooseDeptComboBox.Location = new System.Drawing.Point(1013, 297);
@@ -411,6 +412,7 @@
             // 
             // chooseTeamComboBox
             // 
+            this.chooseTeamComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.chooseTeamComboBox.Enabled = false;
             this.chooseTeamComboBox.FormattingEnabled = true;
             this.chooseTeamComboBox.Location = new System.Drawing.Point(1013, 225);
