@@ -228,7 +228,7 @@ namespace CorporateTaskManagementSystem_V2.View
             }
         }
 
-        private void EditProfileV2_Load(object sender, EventArgs e)
+        public void EditProfileV2_Load(object sender, EventArgs e)
         {
             try
             {
@@ -278,29 +278,47 @@ namespace CorporateTaskManagementSystem_V2.View
                 }
                 salaryNumericUpDown.Value = (decimal)list[0].EmpSalary;
 
-                if (teamLeadRadioButton.Checked || regularEmpRadioButton.Checked)
+                if (list[0].TeamId == null)
                 {
-                    TeamController teamController = new TeamController();
-                    Team t = teamController.SearchTeam(list[0].TeamId);
-                    //chooseTeamComboBox.Enabled = true;
-                    chooseTeamComboBox.Items.Add(t.TeamName);
-                    chooseTeamComboBox.SelectedItem = t.TeamName; // Set the selected item to the team name
-                }
-                if (deptHeadRadioButton.Checked)
-                {
-                    DepartmentController departmentController = new DepartmentController();
-                    Console.WriteLine(list[0].DeptId);
-                    Console.WriteLine();
-                    Department department = departmentController.SearchDept(list[0].DeptId);
-                    chooseDeptComboBox.Items.Add(department.DeptName);
-                    chooseDeptComboBox.SelectedItem = department.DeptName; // Set the selected item to the department name
+                    chooseTeamComboBox.DataSource = null; // Clear the combo box if no team is associated
                 }
                 else
                 {
-                    chooseDeptComboBox.DataSource = null; // Clear the combo box if no department is selected
-                    chooseDeptComboBox.Items.Clear();
-
+                    TeamController teamController = new TeamController();
+                    Team t = teamController.SearchTeam(list[0].TeamId);
+                    if (t != null)
+                    {
+                        chooseTeamComboBox.DataSource = new List<Team> { t }; // Set the combo box data source to a list containing the found team
+                        chooseTeamComboBox.DisplayMember = "TeamName"; // Assuming TeamName is the property to display
+                        chooseTeamComboBox.ValueMember = "TeamId"; // Assuming TeamId is the property to use as value
+                    }
+                    else
+                    {
+                        chooseTeamComboBox.DataSource = null; // Clear the combo box if no team found
+                        chooseTeamComboBox.Items.Clear();
+                    }
                 }
+                if (list[0].DeptId == null)
+                {
+                    chooseDeptComboBox.DataSource = null;
+                }
+                else 
+                {
+                    DepartmentController departmentController = new DepartmentController();
+                    Department department = departmentController.SearchDept(list[0].DeptId);
+                    if (department != null)
+                    {
+                        chooseDeptComboBox.DataSource = new List<Department> { department }; // Set the combo box data source to a list containing the found department
+                        chooseDeptComboBox.DisplayMember = "DeptName"; // Assuming DeptName is the property to display
+                        chooseDeptComboBox.ValueMember = "DeptId"; // Assuming DeptId is the property to use as value
+                    }
+                    else
+                    {
+                        chooseDeptComboBox.DataSource = null; // Clear the combo box if no department found
+                        chooseDeptComboBox.Items.Clear();
+                    }
+                }
+
             }
             catch (Exception ex)
             {
@@ -400,10 +418,17 @@ namespace CorporateTaskManagementSystem_V2.View
 
                 // Initialize empSalary 
                 float empSalary = (float)salaryNumericUpDown.Value;
-
+                
                 string teamId = chooseTeamComboBox.SelectedValue?.ToString(); // Get the selected team ID from the combo box
+                if(chooseTeamComboBox.SelectedValue == null)
+                {
+                    teamId = null; // If no team is selected, set teamId to null
+                }
                 string deptId = chooseDeptComboBox.SelectedValue?.ToString(); // Get the selected department ID from the combo box
-
+                if(chooseDeptComboBox.SelectedValue == null)
+                {
+                    deptId = null; // If no department is selected, set deptId to null
+                }
                 EmployeeController empController = new EmployeeController();
                 Employee employee = new Employee(empId, empFirstName, empLastName, empEmail, empPassword, empDOB, empJoinDate, empPfp, empPosition, empSalary, teamId, deptId);
 

@@ -187,6 +187,7 @@ namespace CorporateTaskManagementSystem_V2.Model
                     emp.EmpPosition = reader.GetString(8);
                     emp.EmpSalary = (float)reader.GetDouble(9);
                     emp.TeamId = reader.IsDBNull(10) ? null : reader.GetString(10); // Handle null teamId
+                    emp.DeptId = reader.IsDBNull(11) ? null : reader.GetString(11); // Handle null deptId
                     list.Add(emp);
                 }
                 reader.Close();
