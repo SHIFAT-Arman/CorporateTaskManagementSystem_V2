@@ -52,6 +52,11 @@ namespace CorporateTaskManagementSystem_V2.View
             get { return deptHeadRadioButton.Enabled; }
             set { deptHeadRadioButton.Enabled = value; }
         }
+        public bool adminRadioButtonEnabled
+        {
+            get { return adminRadioButton.Enabled; }
+            set { adminRadioButton.Enabled = value; }
+        }
 
         public bool IsValidEmail(string email)
         {
