@@ -186,7 +186,7 @@ namespace CorporateTaskManagementSystem_V2.View
                     return;
                 }
                 DepartmentController deptController = new DepartmentController();
-                List<Department> deptList = deptController.GetAllDeptByDeptName(searchDeptName);
+                List<Department> deptList = deptController.GetAllDepartment(searchDeptName);
                 if (deptList.Count > 0)
                 {
                     DepartmentDataGridView.DataSource = deptList;

@@ -33,7 +33,7 @@ namespace CorporateTaskManagementSystem_V2.View
             adminTask1.Visible = false;
 
             adminEmployee1.DeleteBtnVisibility = false; // Hide the delete button for Department Head
-            adminEmployee1.UpdateBtnVisibility = false;
+            adminEmployee1.UpdateBtnVisibility = true;
 
             adminEmployee1.deptHeadRadioButtonEnabled = false;
             

@@ -27,7 +27,7 @@ namespace CorporateTaskManagementSystem_V2.Model
 
         public void UpdateTeam(Team te)
         {
-            SqlCommand cmd = sda.GetQuery("UPDATE Team SET teamName=@teamName, teamCreationDate=@teamCreationDate,deptId=@deptId WHERE teamId=@teamId");
+            SqlCommand cmd = sda.GetQuery("UPDATE Team SET teamName=@teamName, teamCreationDate=@teamCreationDate,deptId=@deptId WHERE teamId=@teamId;");
             cmd.Parameters.AddWithValue("teamId", te.TeamId);
             cmd.Parameters.AddWithValue("teamName", te.TeamName);
             cmd.Parameters.AddWithValue("teamCreationDate", te.TeamCreationDate);

@@ -79,25 +79,8 @@ namespace CorporateTaskManagementSystem_V2.Model
 
             return deptList;
         }
-
-        // search department by deptId from Team and Department table
-        public Department GetDepartmentByTeamId(string teamId)
-        {
-            SqlCommand cmd = sda.GetQuery(@" SELECT d.* FROM Department d JOIN Team t ON d. deptId = t.deptId WHERE t.teamId = @teamId;");
-            cmd.Parameters.AddWithValue("@teamId", teamId);
-            cmd.CommandType = CommandType.Text;
-
-            List<Department> deptList = GetData(cmd);
-            if (deptList.Count > 0)
-            {
-                return deptList[0];
-            }
-            else
-            {
-                return null;
-            }
-        }
-        public List<Department> GetAllDeptByDeptName(string deptName)
+        
+        public List<Department> GetAllDept(string deptName)
         {
             SqlCommand cmd = sda.GetQuery("SELECT * FROM Department WHERE deptName LIKE '%' + @deptName + '%';");
             cmd.Parameters.AddWithValue("@deptName", deptName);
