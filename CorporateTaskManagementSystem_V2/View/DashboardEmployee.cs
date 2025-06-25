@@ -19,6 +19,7 @@ namespace CorporateTaskManagementSystem_V2.View
         {
             employeeTask1.Visible = false;
             editProfileV21.Visible = true;
+            editProfileV21.EditProfileV2_Load(sender, e);
 
         }
 

@@ -28,6 +28,7 @@ namespace CorporateTaskManagementSystem_V2.View
             editProfileV21.Visible = true;
             adminTask1.Visible = false;
             adminEmployee1.Visible = false;
+            editProfileV21.EditProfileV2_Load(sender, e);
         }
 
         private void tasksBtn_Click(object sender, System.EventArgs e)

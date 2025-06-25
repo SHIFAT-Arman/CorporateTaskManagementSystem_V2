@@ -414,6 +414,7 @@ namespace CorporateTaskManagementSystem_V2.View
                     adminRadioButton.Checked = true;
                 }
                 salaryNumericUpDown.Value = Convert.ToDecimal(row.Cells["EmpSalary"].Value);
+                // deptId and teamId are not directly displayed in the DataGridView, so we need to fetch them separately
             }
 
         }
