@@ -159,6 +159,7 @@
             this.adminTaskGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.adminTaskGridView1.Location = new System.Drawing.Point(2, 392);
             this.adminTaskGridView1.Name = "adminTaskGridView1";
+            this.adminTaskGridView1.ReadOnly = true;
             this.adminTaskGridView1.RowHeadersWidth = 51;
             this.adminTaskGridView1.RowTemplate.Height = 24;
             this.adminTaskGridView1.Size = new System.Drawing.Size(822, 373);

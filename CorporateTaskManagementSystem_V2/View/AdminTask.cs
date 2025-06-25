@@ -1,18 +1,27 @@
-﻿using CorporateTaskManagementSystem_V2.Controller;
-using CorporateTaskManagementSystem_V2.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using CorporateTaskManagementSystem_V2.Model;
+using CorporateTaskManagementSystem_V2.Controller;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace CorporateTaskManagementSystem_V2.View
 {
     public partial class AdminTask : UserControl
     {
+        
         private Departments deps = new Departments();
         private Teams teams = new Teams();
 
+        TaskController tc = new TaskController();
+        Teams tec = new Teams();
         private bool IsValidTaskFormat(string taskId)
         {
             string pattern = @"^T-\d{3}$";
@@ -28,15 +37,13 @@ namespace CorporateTaskManagementSystem_V2.View
             TaskController tc = new TaskController();
             adminTaskGridView1.DataSource = tc.GetAllTask();
 
-
-            departmentCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
             departmentCombobox.DisplayMember = "DeptName";
             departmentCombobox.ValueMember = "DeptId";
             departmentCombobox.DataSource = deps.GetAllDept();
-
-            teamcomboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            teamcomboBox1.Enabled = false;
             assignedDt.Value = DateTime.Today;
+
+            departmentCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
+            teamcomboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void RefreshTaskGrid()
@@ -51,23 +58,21 @@ namespace CorporateTaskManagementSystem_V2.View
             departmentCombobox.ValueMember = "DeptId";
             departmentCombobox.DataSource = deps.GetAllDept();
             teamcomboBox1.DataSource = null;
-            teamcomboBox1.Enabled = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            try
+           try
+             {
+            //string task = taskNameTextBox.Text;
+            string taskName = taskNameTextBox.Text.Trim();
+            if (string.IsNullOrEmpty(taskName))
             {
-
-                if (string.IsNullOrWhiteSpace(taskNameTextBox.Text))
-                {
-                    MessageBox.Show("enter task name");
-                }
-
-
-                //string task = taskNameTextBox.Text;
+                MessageBox.Show("task Name can not be empty");
+                return;
+            }
                 string taskId = null;
-                string taskName = taskNameTextBox.Text;
+
                 // DateTime taskAssignedDate = assignedDt.Text;
 
                 DateTime taskAssignedDate;
@@ -75,6 +80,11 @@ namespace CorporateTaskManagementSystem_V2.View
                 {
                     MessageBox.Show("enter valid date");
                     return;
+                }
+                if (taskAssignedDate.Date > DateTime.Today)
+                {
+                    MessageBox.Show("Assigned date can not be in future");
+                return;
                 }
                 string taskStatus = "pending";
                 string teamId = Convert.ToString(teamcomboBox1.SelectedValue);
@@ -87,11 +97,15 @@ namespace CorporateTaskManagementSystem_V2.View
 
                 adminTaskGridView1.DataSource = tc.GetAllTask();
                 adminTaskGridView1.Refresh();
+
+                SearchTextBox.Clear();
+
+
             }
-            catch (Exception exp)
-            {
-                MessageBox.Show(exp.StackTrace);
-            }
+            catch(Exception exp)
+             {
+                MessageBox.Show(exp.StackTrace);    
+             }
         }
 
         private void departmentCombobox_SelectedIndexChanged(object sender, EventArgs e)
@@ -105,8 +119,8 @@ namespace CorporateTaskManagementSystem_V2.View
                 teamcomboBox1.DisplayMember = "TeamName";
                 teamcomboBox1.ValueMember = "TeamId";
                 teamcomboBox1.DataSource = teams.GetData(cmd);
-                teamcomboBox1.Enabled = true;
             }
+
             else
             {
                 teamcomboBox1.DataSource = null;
@@ -120,13 +134,14 @@ namespace CorporateTaskManagementSystem_V2.View
             {
                 DataGridViewRow dvr = adminTaskGridView1.Rows[e.RowIndex];
                 taskNameTextBox.Text = dvr.Cells[1].Value.ToString();
-                assignedDt.Text = dvr.Cells[2].Value.ToString();
+                assignedDt.Value = DateTime.Parse(dvr.Cells[2].Value?.ToString() ?? DateTime.Today.ToString());
                 //departmentCombobox.Text = dvr.Cells[3].Value.ToString();
+                SearchTextBox.Text = dvr.Cells[0].Value.ToString();
 
 
                 if (dvr.Cells[4].Value != null)
                 {
-                    string teamId = dvr.Cells[4].Value.ToString();
+                    string teamId = dvr.Cells[4].Value.ToString()??"";
                     Team selectedTeam = teams.SearchTeam(teamId);
                     if (selectedTeam != null)
                     {
@@ -149,6 +164,7 @@ namespace CorporateTaskManagementSystem_V2.View
 
                 }
             }
+            
         }
 
         private void SearchTextBox_TextChanged(object sender, EventArgs e)
@@ -158,8 +174,7 @@ namespace CorporateTaskManagementSystem_V2.View
 
         private void adminTaskSearchbtn_Click(object sender, EventArgs e)
         {
-            try
-            {
+            try {
                 string taskId = SearchTextBox.Text.Trim();
                 if (!IsValidTaskFormat(taskId))
                 {
@@ -207,8 +222,9 @@ namespace CorporateTaskManagementSystem_V2.View
                     MessageBox.Show("Task not found");
                 }
 
-                adminTaskGridView1.DataSource = tc.GetAllTask();
-                adminTaskGridView1.Refresh();
+                //adminTaskGridView1.DataSource = tc.GetAllTask();
+                // adminTaskGridView1.Refresh();
+                SearchTextBox.Clear();
             }
             catch (Exception exp)
             {
@@ -245,6 +261,7 @@ namespace CorporateTaskManagementSystem_V2.View
                 }
                 adminTaskGridView1.DataSource = tc.GetAllTask();
                 adminTaskGridView1.Refresh();
+                SearchTextBox.Clear();
 
             }
             catch (Exception exp)
@@ -261,35 +278,59 @@ namespace CorporateTaskManagementSystem_V2.View
                 if (!IsValidTaskFormat(taskId))
                 {
                     MessageBox.Show("enter id following format T-123");
+                    return;
                 }
+                if (string.IsNullOrWhiteSpace(taskNameTextBox.Text))
+                {
+                    MessageBox.Show("please enter a task Name;");
+                    return;
+                }
+
+                DateTime taskAssignedDate;
                 //string task = taskNameTextBox.Text;
                 //string taskId = null;
+
+                TaskController tc = new TaskController();
+                Model.Task foundstat = tc.Search(taskId);
+                
+                if (foundstat == null)
+                {
+                    MessageBox.Show("task does not exist, enter proper id to update");
+                    return;
+                }
                 string taskName = taskNameTextBox.Text;
                 // DateTime taskAssignedDate = assignedDt.Text;
 
-                DateTime taskAssignedDate;
                 if (!DateTime.TryParse(assignedDt.Text, out taskAssignedDate))
                 {
                     MessageBox.Show("enter valid date");
                     return;
                 }
-                string taskStatus = "pending";
-                string teamId = Convert.ToString(teamcomboBox1.SelectedValue);
-
-                Model.Task t = new Model.Task(taskId, taskName, taskAssignedDate, taskStatus, teamId);
-                TaskController tc = new TaskController();
-
-                Model.Task sf = tc.Search(taskId);
-                if (sf == null)
+                if (taskAssignedDate.Date > DateTime.Today)
                 {
-                    MessageBox.Show("task does not exist broski");
-
+                    MessageBox.Show("Assigned date can not be in future");
+                    return;
                 }
+
+                //string taskStatus = "pending";
+                string teamId = null;
+                if (teamcomboBox1.SelectedValue !=null && !string.IsNullOrEmpty(teamcomboBox1.SelectedValue.ToString()))
+                {
+                    teamId = teamcomboBox1.SelectedValue.ToString();
+                }
+
+                Model.Task t = new Model.Task(taskId, taskName, taskAssignedDate, foundstat.TaskStatus, teamId);
+                
+
+                //Model.Task sf = tc.Search(taskId);
+                
                 tc.UpdateTask(t);
 
-                MessageBox.Show("yippe");
-                adminTaskGridView1.DataSource = tc.GetAllTask();
-                adminTaskGridView1.Refresh();
+                MessageBox.Show("Task was updated");
+                //adminTaskGridView1.DataSource = tc.GetAllTask();
+                //adminTaskGridView1.Refresh();
+                adminTaskSearchbtn_Click(sender, e);
+                SearchTextBox.Clear();
             }
             catch (Exception exp)
             {
@@ -301,12 +342,17 @@ namespace CorporateTaskManagementSystem_V2.View
         private void button6_Click(object sender, EventArgs e)
         {
             taskNameTextBox.Clear();
+            assignedDt.Value = DateTime.Today;
             departmentCombobox.SelectedIndex = -1;
-            teamcomboBox1.SelectedIndex = -1;
+            // teamcomboBox1.SelectedIndex = -1;
+            teamcomboBox1.DataSource = null;
+            teamcomboBox1.Text = string.Empty;
+            teamcomboBox1.Enabled = true;
             SearchTextBox.Clear();
             TaskController tc = new TaskController();
             adminTaskGridView1.DataSource = tc.GetAllTask();
+            SearchTextBox.Clear();
+
         }
     }
 }
-
