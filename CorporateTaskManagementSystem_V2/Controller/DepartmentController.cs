@@ -28,6 +28,12 @@ namespace CorporateTaskManagementSystem_V2.Controller
             Department d = dd.SearchDept(deptId);
             return d;
         }
+        public List<Department> GetAllDeptByDeptName(string deptName)
+        {
+            Departments dd = new Departments();
+            List<Department> dList = dd.GetAllDeptByDeptName(deptName);
+            return dList;
+        }
         public Department GetDepartmentByTeamId(string teamId)
         {
             Departments dd = new Departments();

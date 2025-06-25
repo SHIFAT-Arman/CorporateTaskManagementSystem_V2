@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
@@ -83,17 +84,16 @@ namespace CorporateTaskManagementSystem_V2.View
         }
         private byte[] SavePhoto()
         {
-            MemoryStream ms = new MemoryStream();
+            
             if (profilePictureBox.Image == null)
             {
                 return null; // Return null if no image is set
             }
-            else
+            using(MemoryStream ms = new MemoryStream())
             {
-                profilePictureBox.Image.Save(ms, profilePictureBox.Image.RawFormat);
-                return ms.GetBuffer();
+                profilePictureBox.Image.Save(ms, ImageFormat.Png);
+                return ms.ToArray();
             }
-
         }
         private void updateBtn_Click(object sender, EventArgs e)
         {
@@ -302,6 +302,143 @@ namespace CorporateTaskManagementSystem_V2.View
             }
 
 
+        }
+
+        private void uploadBtn_Click_1(object sender, EventArgs e)
+        {
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files|*.png";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string imagePath = openFileDialog.FileName;
+                    pfpFileNameTextBox.Text = imagePath;
+
+                    // To avoid file Lock issues, we can read the file into a MemoryStream
+                    using (var stream = new MemoryStream(File.ReadAllBytes(imagePath)))
+                    {
+                        profilePictureBox.Image = Image.FromStream(stream);
+                    }
+
+                }
+            }
+        }
+
+        private void UpdateBtn_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                string empId = empIdTB.Text.Trim();
+                string empFirstName = firstNameTB.Text.Trim();
+                if (!IsValidName(empFirstName)) // Validate first name
+                {
+                    firstNameErrorLabel.Text = "First name must start with a capital letter and contain only letters and no spaces.";
+                    firstNameErrorLabel.Visible = true;
+                    return;
+                }
+                string empLastName = lastNameTB.Text.Trim();
+                if (!IsValidName(empLastName)) // Validate last name
+                {
+                    lastNameErrorLabel.Text = "Last name must start with a capital letter and contain only letters and no spaces.";
+                    lastNameErrorLabel.Visible = true;
+                    return;
+                }
+                string empEmail = emailTB.Text.Trim();
+                if (!IsValidEmail(empEmail)) // Validate email format
+                {
+                    MessageBox.Show("Please enter a valid email address.", "Invalid Email", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                string empPassword = passwordTB.Text.Trim();
+                if (!IsValidPassword(empPassword)) // Validate password
+                {
+                    passInfoToolTip.Show("Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character.", passInfoLabel, 2000);
+                    return;
+                }
+
+                // DOB validation
+                DateTime empDOB = DOBDateTimePicker.Value.Date;
+                if (empDOB > DateTime.Now)
+                {
+                    MessageBox.Show("Date of Birth cannot be in the future.", "Invalid Date of Birth", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                var empJoinDate = joinDateDateTimePicker.Value.Date;
+                string empPosition = ""; // Initialize empPosition variable
+                if (regularEmpRadioButton.Checked)
+                {
+                    empPosition = "Regular Employee";
+                }
+                else if (deptHeadRadioButton.Checked)
+                {
+                    empPosition = "Department Head";
+                }
+                else if (teamLeadRadioButton.Checked)
+                {
+                    empPosition = "Team Lead";
+                }
+                else if (adminRadioButton.Checked)
+                {
+                    empPosition = "Admin";
+                }
+                else
+                {
+                    MessageBox.Show("Please select a position for the employee.", "Position Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                Console.WriteLine(empPosition);
+
+                // Load profile picture
+                byte[] empPfp = SavePhoto();
+
+                // Initialize empSalary 
+                float empSalary = (float)salaryNumericUpDown.Value;
+
+                string teamId = chooseTeamComboBox.SelectedValue?.ToString(); // Get the selected team ID from the combo box
+                string deptId = chooseDeptComboBox.SelectedValue?.ToString(); // Get the selected department ID from the combo box
+
+                EmployeeController empController = new EmployeeController();
+                Employee employee = new Employee(empId, empFirstName, empLastName, empEmail, empPassword, empDOB, empJoinDate, empPfp, empPosition, empSalary, teamId, deptId);
+
+                empController.UpdateEmployee(employee);
+
+                LoginController loginController = new LoginController();
+                Login login = new Login(empId, empEmail, empPassword, empPosition);
+                loginController.UpdateLogin(login);
+
+                MessageBox.Show("Employee Updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while updating the employee: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            resetBtn_Click(sender, e);
+        }
+
+        private void uploadBtn_MouseHover(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ResetBtn_Click_1(object sender, EventArgs e)
+        {
+            EditProfileV2_Load(sender, e);
+        }
+
+        private void showLinkLabel_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (showLinkLabel.Text == "Show")
+            {
+                passwordTB.PasswordChar = '\0';
+                showLinkLabel.Text = "Hide";
+            }
+            else
+            {
+                passwordTB.PasswordChar = '*';
+                showLinkLabel.Text = "Show";
+            }
         }
     }
 }

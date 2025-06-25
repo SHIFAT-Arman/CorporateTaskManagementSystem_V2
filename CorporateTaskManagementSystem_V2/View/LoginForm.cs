@@ -35,6 +35,18 @@ namespace CorporateTaskManagementSystem_V2.View
             }
         }
 
+        public bool IsValidEmpId(string empId)
+        {
+            if(empId.Contains("E-") && empId != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private void loginBtn_Click(object sender, EventArgs e)
         {
             try
@@ -44,6 +56,12 @@ namespace CorporateTaskManagementSystem_V2.View
                 string empPassword = passwordMaskedTextBox.Text.Trim();
                 Session.LoggedInEmpId = empId;
 
+                //validate ID format
+                if(IsValidEmpId(empId) == false)
+                {
+                    MessageBox.Show("Please enter a valid Employee ID (format: E-XXX).", "Invalid Employee ID", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 // Validate email format
                 if (IsValidEmail(empEmail) == false)
@@ -100,13 +118,13 @@ namespace CorporateTaskManagementSystem_V2.View
                     }
                     else
                     {
-                        MessageBox.Show("Invalid email or password.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Invalid Credentials!", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                 }
                 else
                 {
-                    MessageBox.Show("Invalid email or password.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Invalid Credentials!", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -133,7 +151,7 @@ namespace CorporateTaskManagementSystem_V2.View
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-            Console.WriteLine("Loading login");
+            
         }
     }
 }

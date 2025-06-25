@@ -20,7 +20,11 @@ namespace CorporateTaskManagementSystem_V2.Controller
             Teams teams = new Teams();
             teams.DeleteTeam(teamId);
         }
-
+        public List<Team> GetAllTeamByTeamName(string teamName)
+        {
+            Teams teams = new Teams();
+            return teams.GetAllTeamByTeamName(teamName);
+        }
         public Team SearchTeam(string teamId)
         {
             Teams teams = new Teams();

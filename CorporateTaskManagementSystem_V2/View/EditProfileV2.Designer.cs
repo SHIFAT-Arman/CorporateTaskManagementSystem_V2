@@ -97,6 +97,7 @@
             this.ResetBtn.TabIndex = 121;
             this.ResetBtn.Text = "Reset";
             this.ResetBtn.UseVisualStyleBackColor = true;
+            this.ResetBtn.Click += new System.EventHandler(this.ResetBtn_Click_1);
             // 
             // pfpFileNameTextBox
             // 
@@ -127,6 +128,7 @@
             this.showLinkLabel.TabIndex = 143;
             this.showLinkLabel.TabStop = true;
             this.showLinkLabel.Text = "Show";
+            this.showLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.showLinkLabel_LinkClicked_1);
             // 
             // salaryErrorLabel
             // 
@@ -306,6 +308,7 @@
             this.UpdateBtn.TabIndex = 122;
             this.UpdateBtn.Text = "Update";
             this.UpdateBtn.UseVisualStyleBackColor = true;
+            this.UpdateBtn.Click += new System.EventHandler(this.UpdateBtn_Click_1);
             // 
             // uploadBtn
             // 
@@ -314,7 +317,10 @@
             this.uploadBtn.Size = new System.Drawing.Size(89, 32);
             this.uploadBtn.TabIndex = 120;
             this.uploadBtn.Text = "upload";
+            this.passInfoToolTip.SetToolTip(this.uploadBtn, "Only *png images are allowed");
             this.uploadBtn.UseVisualStyleBackColor = true;
+            this.uploadBtn.Click += new System.EventHandler(this.uploadBtn_Click_1);
+            this.uploadBtn.MouseHover += new System.EventHandler(this.uploadBtn_MouseHover);
             // 
             // adminRadioButton
             // 

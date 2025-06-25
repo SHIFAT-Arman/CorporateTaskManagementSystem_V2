@@ -30,6 +30,11 @@
         {
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.adminTeam1 = new CorporateTaskManagementSystem_V2.View.AdminTeam();
+            this.adminDepartment1 = new CorporateTaskManagementSystem_V2.View.AdminDepartment();
+            this.editProfileV21 = new CorporateTaskManagementSystem_V2.View.EditProfileV2();
+            this.adminEmployee1 = new CorporateTaskManagementSystem_V2.View.AdminEmployee();
+            this.adminTask1 = new CorporateTaskManagementSystem_V2.View.AdminTask();
             this.nameLabel = new System.Windows.Forms.Label();
             this.tasksBtn = new System.Windows.Forms.Button();
             this.teamsBtn = new System.Windows.Forms.Button();
@@ -40,11 +45,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.defaultPictureBox = new System.Windows.Forms.PictureBox();
             this.pfpPictureBox = new System.Windows.Forms.PictureBox();
-            this.adminEmployee1 = new CorporateTaskManagementSystem_V2.View.AdminEmployee();
-            this.adminTask1 = new CorporateTaskManagementSystem_V2.View.AdminTask();
-            this.adminTeam1 = new CorporateTaskManagementSystem_V2.View.AdminTeam();
-            this.adminDepartment1 = new CorporateTaskManagementSystem_V2.View.AdminDepartment();
-            this.editProfileV21 = new CorporateTaskManagementSystem_V2.View.EditProfileV2();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -66,16 +66,62 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.RoyalBlue;
+            this.panel3.Controls.Add(this.adminDepartment1);
             this.panel3.Controls.Add(this.editProfileV21);
             this.panel3.Controls.Add(this.adminEmployee1);
             this.panel3.Controls.Add(this.adminTask1);
             this.panel3.Controls.Add(this.adminTeam1);
-            this.panel3.Controls.Add(this.adminDepartment1);
             this.panel3.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1549, 896);
             this.panel3.TabIndex = 0;
+            // 
+            // adminTeam1
+            // 
+            this.adminTeam1.BackColor = System.Drawing.Color.AliceBlue;
+            this.adminTeam1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminTeam1.Location = new System.Drawing.Point(290, 0);
+            this.adminTeam1.Margin = new System.Windows.Forms.Padding(4);
+            this.adminTeam1.Name = "adminTeam1";
+            this.adminTeam1.Size = new System.Drawing.Size(1206, 877);
+            this.adminTeam1.TabIndex = 4;
+            // 
+            // adminDepartment1
+            // 
+            this.adminDepartment1.BackColor = System.Drawing.Color.AliceBlue;
+            this.adminDepartment1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminDepartment1.Location = new System.Drawing.Point(290, 0);
+            this.adminDepartment1.Name = "adminDepartment1";
+            this.adminDepartment1.Size = new System.Drawing.Size(1207, 877);
+            this.adminDepartment1.TabIndex = 3;
+            // 
+            // editProfileV21
+            // 
+            this.editProfileV21.BackColor = System.Drawing.Color.AliceBlue;
+            this.editProfileV21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.editProfileV21.Location = new System.Drawing.Point(290, 0);
+            this.editProfileV21.Name = "editProfileV21";
+            this.editProfileV21.Size = new System.Drawing.Size(1207, 877);
+            this.editProfileV21.TabIndex = 6;
+            // 
+            // adminEmployee1
+            // 
+            this.adminEmployee1.BackColor = System.Drawing.Color.AliceBlue;
+            this.adminEmployee1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminEmployee1.Location = new System.Drawing.Point(290, 0);
+            this.adminEmployee1.Name = "adminEmployee1";
+            this.adminEmployee1.Size = new System.Drawing.Size(1206, 877);
+            this.adminEmployee1.TabIndex = 2;
+            // 
+            // adminTask1
+            // 
+            this.adminTask1.BackColor = System.Drawing.Color.AliceBlue;
+            this.adminTask1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminTask1.Location = new System.Drawing.Point(318, 0);
+            this.adminTask1.Name = "adminTask1";
+            this.adminTask1.Size = new System.Drawing.Size(827, 776);
+            this.adminTask1.TabIndex = 5;
             // 
             // nameLabel
             // 
@@ -202,52 +248,6 @@
             this.pfpPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pfpPictureBox.TabIndex = 2;
             this.pfpPictureBox.TabStop = false;
-            // 
-            // adminEmployee1
-            // 
-            this.adminEmployee1.BackColor = System.Drawing.Color.AliceBlue;
-            this.adminEmployee1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminEmployee1.Location = new System.Drawing.Point(290, 0);
-            this.adminEmployee1.Name = "adminEmployee1";
-            this.adminEmployee1.Size = new System.Drawing.Size(1206, 877);
-            this.adminEmployee1.TabIndex = 2;
-            // 
-            // adminTask1
-            // 
-            this.adminTask1.BackColor = System.Drawing.Color.AliceBlue;
-            this.adminTask1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminTask1.Location = new System.Drawing.Point(318, 0);
-            this.adminTask1.Name = "adminTask1";
-            this.adminTask1.Size = new System.Drawing.Size(827, 776);
-            this.adminTask1.TabIndex = 5;
-            // 
-            // adminTeam1
-            // 
-            this.adminTeam1.BackColor = System.Drawing.Color.AliceBlue;
-            this.adminTeam1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminTeam1.Location = new System.Drawing.Point(318, 0);
-            this.adminTeam1.Margin = new System.Windows.Forms.Padding(4);
-            this.adminTeam1.Name = "adminTeam1";
-            this.adminTeam1.Size = new System.Drawing.Size(827, 776);
-            this.adminTeam1.TabIndex = 4;
-            // 
-            // adminDepartment1
-            // 
-            this.adminDepartment1.BackColor = System.Drawing.Color.AliceBlue;
-            this.adminDepartment1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminDepartment1.Location = new System.Drawing.Point(318, 0);
-            this.adminDepartment1.Name = "adminDepartment1";
-            this.adminDepartment1.Size = new System.Drawing.Size(827, 776);
-            this.adminDepartment1.TabIndex = 3;
-            // 
-            // editProfileV21
-            // 
-            this.editProfileV21.BackColor = System.Drawing.Color.AliceBlue;
-            this.editProfileV21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.editProfileV21.Location = new System.Drawing.Point(290, 0);
-            this.editProfileV21.Name = "editProfileV21";
-            this.editProfileV21.Size = new System.Drawing.Size(1207, 877);
-            this.editProfileV21.TabIndex = 6;
             // 
             // DashboardAdmin
             // 
