@@ -41,13 +41,13 @@ namespace CorporateTaskManagementSystem_V2.Model
             }
             if (string.IsNullOrEmpty(employee.DeptId))
             {
-                cmd.Parameters.AddWithValue("@teamId", DBNull.Value); // Handle null team ID
+                cmd.Parameters.AddWithValue("@deptId", DBNull.Value); // Handle null team ID
             }
             else
             {
-                cmd.Parameters.AddWithValue("@teamId", employee.DeptId);
+                cmd.Parameters.AddWithValue("@deptId", employee.DeptId);
             }
-
+            
             cmd.CommandType = CommandType.Text;
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
@@ -85,11 +85,11 @@ namespace CorporateTaskManagementSystem_V2.Model
             }
             if (string.IsNullOrEmpty(employee.DeptId))
             {
-                cmd.Parameters.AddWithValue("@teamId", DBNull.Value); // Handle null team ID
+                cmd.Parameters.AddWithValue("@deptId", DBNull.Value); // Handle null team ID
             }
             else
             {
-                cmd.Parameters.AddWithValue("@teamId", employee.DeptId);
+                cmd.Parameters.AddWithValue("@deptId", employee.DeptId);
             }
             cmd.Parameters.AddWithValue("@empId", employee.EmpId);
 

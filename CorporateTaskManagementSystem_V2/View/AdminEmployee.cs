@@ -3,6 +3,7 @@ using CorporateTaskManagementSystem_V2.Model;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
@@ -177,6 +178,7 @@ namespace CorporateTaskManagementSystem_V2.View
             chooseTeamComboBox.DataSource = null; // Clear the combo box data source
             chooseTeamComboBox.Items.Clear();
             SearchTextBox.Text = "Search by First Name";
+            EmployeeDataGridView.Refresh();
 
         }
 
@@ -312,7 +314,7 @@ namespace CorporateTaskManagementSystem_V2.View
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png";
+                openFileDialog.Filter = "Image Files|*.png";
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string imagePath = openFileDialog.FileName;
@@ -345,6 +347,10 @@ namespace CorporateTaskManagementSystem_V2.View
                 byte[] empPfp = (byte[])row.Cells["EmpPfp"].Value;
                 if (empPfp != null && empPfp.Length > 0)
                 {
+                    //using(FileStream fs = new FileStream(pfpFileNameTextBox.Text, FileMode.Open, FileAccess.Read))
+                    //{
+                    //    profilePictureBox.Image = Image.FromStream(fs);
+                    //}
                     using (var stream = new MemoryStream(empPfp))
                     {
                         profilePictureBox.Image = Image.FromStream(stream);
@@ -427,17 +433,16 @@ namespace CorporateTaskManagementSystem_V2.View
 
         private byte[] SavePhoto()
         {
-            MemoryStream ms = new MemoryStream();
+
             if (profilePictureBox.Image == null)
             {
                 return null; // Return null if no image is set
             }
-            else
+            using (MemoryStream ms = new MemoryStream())
             {
-                profilePictureBox.Image.Save(ms, profilePictureBox.Image.RawFormat);
-                return ms.GetBuffer();
+                profilePictureBox.Image.Save(ms, ImageFormat.Png);
+                return ms.ToArray();
             }
-
         }
 
         private void updateBtn_Click(object sender, EventArgs e)
@@ -612,12 +617,12 @@ namespace CorporateTaskManagementSystem_V2.View
 
         private void emailTB_MouseHover(object sender, EventArgs e)
         {
-            passInfoToolTip.Show("Format must be either of three:\r\n<email><E-ID>.emp@gmail.com\r\n<email><E-ID>..dept@gmail.com\r\n<email><E-ID>..admin@gmail.com", emailTB, 5000);
+            passInfoToolTip.Show("Format must be either of three:\r\n<email>.emp@gmail.com\r\n<email>.dept@gmail.com\r\n<email>.admin@gmail.com", emailTB, 5000);
         }
 
         private void emailTB_Enter(object sender, EventArgs e)
         {
-            passInfoToolTip.Show("Format must be either of three:\r\n<email><E-ID>.emp@gmail.com\r\n<email><E-ID>..dept@gmail.com\r\n<email><E-ID>..admin@gmail.com", emailTB, 5000);
+            passInfoToolTip.Show("Format must be either of three:\r\n<email>.emp@gmail.com\r\n<email>.dept@gmail.com\r\n<email>.admin@gmail.com", emailTB, 5000);
         }
     }
 }

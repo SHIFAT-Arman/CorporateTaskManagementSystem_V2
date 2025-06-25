@@ -27,7 +27,7 @@ namespace CorporateTaskManagementSystem_V2.Model
 
         public void UpdateTeam(Team te)
         {
-            SqlCommand cmd = sda.GetQuery("UPDATE Team SET teamName=@teamName, teamCreationDate=@teamCreationDate,deptId=@deptId;");
+            SqlCommand cmd = sda.GetQuery("UPDATE Team SET teamName=@teamName, teamCreationDate=@teamCreationDate,deptId=@deptId WHERE teamId=@teamId");
             cmd.Parameters.AddWithValue("teamId", te.TeamId);
             cmd.Parameters.AddWithValue("teamName", te.TeamName);
             cmd.Parameters.AddWithValue("teamCreationDate", te.TeamCreationDate);
@@ -101,6 +101,14 @@ namespace CorporateTaskManagementSystem_V2.Model
             List<Team> teamList = GetData(cmd);
             return teamList;
         }
+        public List<Team> GetAllTeamByTeamName(string teamName)
+        {
+            SqlCommand cmd = sda.GetQuery("SELECT * FROM Team WHERE teamName LIKE '%' + @teamName + '%'");
+            cmd.Parameters.AddWithValue("@teamName", teamName );
+            cmd.CommandType = CommandType.Text;
+            List<Team> teamList = GetData(cmd);
+            return teamList;
+        }
         public Team SearchTeam(string teamId)
         {
             SqlCommand cmd = sda.GetQuery("SELECT * FROM Team where teamId=@teamId;");
@@ -114,6 +122,29 @@ namespace CorporateTaskManagementSystem_V2.Model
             {
                 return null;
             }
+        }
+        public string AutoTeamId(string txt)
+        {
+            SqlCommand cmd = sda.GetQuery("SELECT MAX(teamId) FROM [Team]");
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
+
+            string maxId = Convert.ToString(cmd.ExecuteScalar());
+
+            int nextId = 1; // Default to 1 if no employees exist
+
+            if (!string.IsNullOrEmpty(maxId) && maxId.StartsWith("TE-") && int.TryParse(maxId.Substring(3), out int currentMaxId))
+            {
+                nextId = currentMaxId + 1;
+            }
+            txt = "TE-" + nextId.ToString("D3");
+
+            cmd.Connection.Close();
+
+
+            return txt;
         }
     }
 }
