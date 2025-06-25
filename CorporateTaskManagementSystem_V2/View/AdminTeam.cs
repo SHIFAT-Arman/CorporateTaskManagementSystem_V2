@@ -2,6 +2,7 @@
 using CorporateTaskManagementSystem_V2.Model;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace CorporateTaskManagementSystem_V2.View
@@ -35,6 +36,16 @@ namespace CorporateTaskManagementSystem_V2.View
             }
         }
 
+        public bool IsValidTeamName(string teamName)
+        {
+            if (string.IsNullOrWhiteSpace(teamName) || teamName.Length < 2)
+                return false;
+
+            // Pattern: letters and spaces, optionally followed by numbers at the end
+            Regex regex = new Regex(@"^[a-zA-Z\s]+[0-9]*$");
+            return regex.IsMatch(teamName);
+        }
+
         private void AddBtn_Click(object sender, System.EventArgs e)
         {
             try
@@ -52,9 +63,9 @@ namespace CorporateTaskManagementSystem_V2.View
                     MessageBox.Show("Please select a department.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                if (teamName == string.Empty)
+                if (!IsValidTeamName(teamName))
                 {
-                    MessageBox.Show("Please enter a team name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Team name can only contain letters and spaces with optional numeric at the end.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 string teamId = TeamIdTB.Text.Trim();
@@ -91,6 +102,12 @@ namespace CorporateTaskManagementSystem_V2.View
         {
             UpdateTeamId();
             TeamsDataGridView.ClearSelection();
+            TeamController teamController = new TeamController();
+            TeamsDataGridView.DataSource = teamController.GetAllTeams();
+            TeamsDataGridView.Refresh();
+
+            chooseDeptComboBox_MouseClick(sender, null);
+            refreshBtn.PerformClick();
         }
 
         private void chooseDeptComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -108,7 +125,7 @@ namespace CorporateTaskManagementSystem_V2.View
 
         private void teamNameTextBox_TextChanged(object sender, EventArgs e)
         {
-            TeamsDataGridView.ClearSelection();
+            
         }
 
         private void AdminTeam_Click(object sender, EventArgs e)
@@ -152,6 +169,7 @@ namespace CorporateTaskManagementSystem_V2.View
                     return;
                 }
                 string deptId = chooseDeptComboBox.SelectedValue.ToString();
+
                 if (string.IsNullOrEmpty(deptId))
                 {
                     MessageBox.Show("Please select a department.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -171,6 +189,7 @@ namespace CorporateTaskManagementSystem_V2.View
 
                 UpdateTeamId();
                 ClearFields();
+                refreshBtn.PerformClick();
 
             }
             catch (Exception ex)
@@ -180,22 +199,7 @@ namespace CorporateTaskManagementSystem_V2.View
 
         }
 
-        private void TeamsDataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.RowIndex < TeamsDataGridView.Rows.Count)
-            {
-                DataGridViewRow row = TeamsDataGridView.Rows[e.RowIndex];
-                TeamIdTB.Text = row.Cells["TeamId"].Value.ToString();
-                teamNameTextBox.Text = row.Cells["TeamName"].Value.ToString();
-                CreationDateTimePicker.Value = Convert.ToDateTime(row.Cells["TeamCreationDate"].Value);
-                chooseDeptComboBox.SelectedValue = row.Cells["DeptId"].Value;
-                string deptId = row.Cells["DeptId"].Value.ToString();
-                DepartmentController departmentController = new DepartmentController();
-                chooseDeptComboBox.DataSource = departmentController.GetAllDepartment();
-                Department dept = departmentController.SearchDept(deptId);
-                chooseDeptComboBox.SelectedItem = dept.DeptName;
-            }
-        }
+        
 
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
@@ -214,6 +218,7 @@ namespace CorporateTaskManagementSystem_V2.View
 
                 UpdateTeamId();
                 ClearFields();
+                refreshBtn.PerformClick();
             }
             catch (Exception ex)
             {
@@ -257,6 +262,41 @@ namespace CorporateTaskManagementSystem_V2.View
             ClearFields();
             UpdateTeamId();
             TeamsDataGridView.ClearSelection(); // Clear the selection in the DataGridView
+        }
+
+        private void TeamsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex >= 0 && e.RowIndex < TeamsDataGridView.Rows.Count)
+            {
+                try
+                {
+                    DataGridViewRow row = TeamsDataGridView.Rows[e.RowIndex];
+                    TeamIdTB.Text = row.Cells["TeamId"].Value.ToString();
+                    teamNameTextBox.Text = row.Cells["TeamName"].Value.ToString();
+                    CreationDateTimePicker.Value = Convert.ToDateTime(row.Cells["TeamCreationDate"].Value);
+
+                    DepartmentController departmentController = new DepartmentController();
+                    string deptId = row.Cells["DeptId"].Value.ToString();
+                    Department dept = departmentController.SearchDept(deptId);
+                    if(dept != null)
+                    {
+                        chooseDeptComboBox.DisplayMember = dept.DeptName;
+                        chooseDeptComboBox.SelectedValue = dept.DeptId;
+                        chooseDeptComboBox.SelectedItem = dept.DeptName;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred while selecting the team: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
+
+        private void teamNameTextBox_Enter(object sender, EventArgs e)
+        {
+            TeamsDataGridView.ClearSelection();
         }
     }
 }

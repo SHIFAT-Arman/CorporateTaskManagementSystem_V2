@@ -36,6 +36,7 @@
             this.pfpPictureBox = new System.Windows.Forms.PictureBox();
             this.employeeTask1 = new CorporateTaskManagementSystem_V2.View.EmployeeTask();
             this.editProfileV21 = new CorporateTaskManagementSystem_V2.View.EditProfileV2();
+            this.positionLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.defaultPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pfpPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -60,6 +61,7 @@
             this.LogoutBtn.TabIndex = 68;
             this.LogoutBtn.Text = "Logout";
             this.LogoutBtn.UseVisualStyleBackColor = true;
+            this.LogoutBtn.Click += new System.EventHandler(this.LogoutBtn_Click);
             // 
             // EditProfileBtn
             // 
@@ -113,7 +115,7 @@
             this.employeeTask1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.employeeTask1.Location = new System.Drawing.Point(277, 0);
             this.employeeTask1.Name = "employeeTask1";
-            this.employeeTask1.Size = new System.Drawing.Size(1207, 896);
+            this.employeeTask1.Size = new System.Drawing.Size(1222, 896);
             this.employeeTask1.TabIndex = 78;
             // 
             // editProfileV21
@@ -125,11 +127,22 @@
             this.editProfileV21.Size = new System.Drawing.Size(1207, 896);
             this.editProfileV21.TabIndex = 77;
             // 
+            // positionLabel
+            // 
+            this.positionLabel.AutoSize = true;
+            this.positionLabel.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.positionLabel.Location = new System.Drawing.Point(87, 23);
+            this.positionLabel.Name = "positionLabel";
+            this.positionLabel.Size = new System.Drawing.Size(81, 24);
+            this.positionLabel.TabIndex = 79;
+            this.positionLabel.Text = "Position";
+            // 
             // DashboardEmployee
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.RoyalBlue;
             this.ClientSize = new System.Drawing.Size(1496, 896);
+            this.Controls.Add(this.positionLabel);
             this.Controls.Add(this.defaultPictureBox);
             this.Controls.Add(this.LogoutBtn);
             this.Controls.Add(this.EditProfileBtn);
@@ -141,6 +154,7 @@
             this.Font = new System.Drawing.Font("Bahnschrift", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "DashboardEmployee";
             this.Text = "DashboardEmployee";
+            this.Load += new System.EventHandler(this.DashboardEmployee_Load);
             ((System.ComponentModel.ISupportInitialize)(this.defaultPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pfpPictureBox)).EndInit();
             this.ResumeLayout(false);
@@ -158,5 +172,6 @@
         private System.Windows.Forms.PictureBox pfpPictureBox;
         private EditProfileV2 editProfileV21;
         private EmployeeTask employeeTask1;
+        private System.Windows.Forms.Label positionLabel;
     }
 }

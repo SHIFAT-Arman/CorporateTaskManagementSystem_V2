@@ -18,6 +18,41 @@ namespace CorporateTaskManagementSystem_V2.View
             InitializeComponent();
         }
 
+        public bool DeleteBtnVisibility
+        {
+            get { return deleteBtn.Visible; }
+            set { deleteBtn.Visible = value; }
+        }
+
+        public bool UpdateBtnVisibility
+        {
+            get { return updateBtn.Visible; }
+            set { updateBtn.Visible = value; }
+        }
+
+        public bool AddBtnVisibility
+        {
+            get { return AddBtn.Visible; }
+            set { AddBtn.Visible = value; }
+        }
+
+        public bool ResetBtnVisibility
+        {
+            get { return resetBtn.Visible; }
+            set { resetBtn.Visible = value; }
+        }
+
+        public bool chooseDeptComboBoxEnabled
+        {
+            get { return chooseDeptComboBox.Enabled; }
+            set { chooseDeptComboBox.Enabled = value; }
+        }
+        public bool deptHeadRadioButtonEnabled
+        {
+            get { return deptHeadRadioButton.Enabled; }
+            set { deptHeadRadioButton.Enabled = value; }
+        }
+
         public bool IsValidEmail(string email)
         {
             try
@@ -387,6 +422,7 @@ namespace CorporateTaskManagementSystem_V2.View
         {
             EmployeeController empController = new EmployeeController();
             EmployeeDataGridView.DataSource = empController.GetAllEmployees();
+            EmployeeDataGridView.ClearSelection();
             EmployeeDataGridView.Refresh();
         }
 

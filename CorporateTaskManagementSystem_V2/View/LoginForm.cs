@@ -83,18 +83,6 @@ namespace CorporateTaskManagementSystem_V2.View
 
                 if (login != null)
                 {
-                    if (login.EmpEmail.Contains("admin"))
-                    {
-                        login.EmpPosition = "Admin";
-                    }
-                    else if (login.EmpEmail.Contains("dept"))
-                    {
-                        login.EmpPosition = "Department Head";
-                    }
-                    else if (login.EmpEmail.Contains("emp"))
-                    {
-                        login.EmpPosition = "Regular Employee";
-                    }
 
                     if (login.EmpId.Equals(empId) && login.EmpEmail.Equals(empEmail) && login.EmpPassword.Equals(empPassword) && login.EmpPosition.Equals("Admin"))
                     {
@@ -109,12 +97,21 @@ namespace CorporateTaskManagementSystem_V2.View
                         this.Hide();
                         DashboardDepartmentHead dashboardDepartmentHead = new DashboardDepartmentHead();
                         dashboardDepartmentHead.Show();
+                        dashboardDepartmentHead.LoadLoginInfo(empId);
                     }
                     else if (login.EmpId.Equals(empId) && login.EmpEmail.Equals(empEmail) && login.EmpPassword.Equals(empPassword) && login.EmpPosition.Equals("Regular Employee"))
                     {
                         this.Hide();
                         DashboardEmployee dashboardEmployee = new DashboardEmployee();
                         dashboardEmployee.Show();
+                        dashboardEmployee.LoadLoginInfo(empId);
+                    }
+                    else if (login.EmpId.Equals(empId) && login.EmpEmail.Equals(empEmail) && login.EmpPassword.Equals(empPassword) && login.EmpPosition.Equals("Team Lead"))
+                    {
+                        this.Hide();
+                        DashboardTeamLead dashboardTeamLead = new DashboardTeamLead();
+                        dashboardTeamLead.Show();
+                        dashboardTeamLead.LoadLoginInfo(empId);
                     }
                     else
                     {

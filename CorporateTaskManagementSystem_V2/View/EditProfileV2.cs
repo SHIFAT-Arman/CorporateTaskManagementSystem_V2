@@ -295,6 +295,12 @@ namespace CorporateTaskManagementSystem_V2.View
                     chooseDeptComboBox.Items.Add(department.DeptName);
                     chooseDeptComboBox.SelectedItem = department.DeptName; // Set the selected item to the department name
                 }
+                else
+                {
+                    chooseDeptComboBox.DataSource = null; // Clear the combo box if no department is selected
+                    chooseDeptComboBox.Items.Clear();
+
+                }
             }
             catch (Exception ex)
             {

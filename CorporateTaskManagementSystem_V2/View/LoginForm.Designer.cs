@@ -87,7 +87,7 @@
             this.emailTB.Location = new System.Drawing.Point(434, 254);
             this.emailTB.Name = "emailTB";
             this.emailTB.Size = new System.Drawing.Size(187, 30);
-            this.emailTB.TabIndex = 3;
+            this.emailTB.TabIndex = 2;
             // 
             // passwordMaskedTextBox
             // 
@@ -96,7 +96,7 @@
             this.passwordMaskedTextBox.Name = "passwordMaskedTextBox";
             this.passwordMaskedTextBox.PasswordChar = '*';
             this.passwordMaskedTextBox.Size = new System.Drawing.Size(187, 30);
-            this.passwordMaskedTextBox.TabIndex = 4;
+            this.passwordMaskedTextBox.TabIndex = 3;
             // 
             // loginBtn
             // 
@@ -114,7 +114,7 @@
             this.IdTB.Location = new System.Drawing.Point(434, 207);
             this.IdTB.Name = "IdTB";
             this.IdTB.Size = new System.Drawing.Size(187, 30);
-            this.IdTB.TabIndex = 7;
+            this.IdTB.TabIndex = 1;
             // 
             // label2
             // 

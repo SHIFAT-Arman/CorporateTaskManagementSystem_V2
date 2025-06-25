@@ -50,7 +50,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(459, 104);
+            this.label4.Location = new System.Drawing.Point(874, 105);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(129, 24);
             this.label4.TabIndex = 101;
@@ -63,7 +63,7 @@
             this.eTaskTeamComboBox1.Items.AddRange(new object[] {
             "Website Designer",
             "Data Analyst"});
-            this.eTaskTeamComboBox1.Location = new System.Drawing.Point(463, 131);
+            this.eTaskTeamComboBox1.Location = new System.Drawing.Point(878, 132);
             this.eTaskTeamComboBox1.Name = "eTaskTeamComboBox1";
             this.eTaskTeamComboBox1.Size = new System.Drawing.Size(271, 32);
             this.eTaskTeamComboBox1.TabIndex = 100;
@@ -104,7 +104,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Bahnschrift", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(332, 11);
+            this.label1.Location = new System.Drawing.Point(528, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 36);
             this.label1.TabIndex = 93;
@@ -112,7 +112,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(719, 353);
+            this.button6.Location = new System.Drawing.Point(1060, 354);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(89, 32);
             this.button6.TabIndex = 92;
@@ -122,7 +122,7 @@
             // 
             // eTaskSearchBtn
             // 
-            this.eTaskSearchBtn.Location = new System.Drawing.Point(131, 353);
+            this.eTaskSearchBtn.Location = new System.Drawing.Point(361, 355);
             this.eTaskSearchBtn.Name = "eTaskSearchBtn";
             this.eTaskSearchBtn.Size = new System.Drawing.Size(89, 32);
             this.eTaskSearchBtn.TabIndex = 90;
@@ -132,7 +132,7 @@
             // 
             // eTaskUpdateBtn
             // 
-            this.eTaskUpdateBtn.Location = new System.Drawing.Point(26, 353);
+            this.eTaskUpdateBtn.Location = new System.Drawing.Point(70, 355);
             this.eTaskUpdateBtn.Name = "eTaskUpdateBtn";
             this.eTaskUpdateBtn.Size = new System.Drawing.Size(89, 32);
             this.eTaskUpdateBtn.TabIndex = 88;
@@ -143,11 +143,13 @@
             // eTaskSearchTextBox
             // 
             this.eTaskSearchTextBox.ForeColor = System.Drawing.Color.Silver;
-            this.eTaskSearchTextBox.Location = new System.Drawing.Point(226, 354);
+            this.eTaskSearchTextBox.Location = new System.Drawing.Point(456, 355);
             this.eTaskSearchTextBox.Name = "eTaskSearchTextBox";
             this.eTaskSearchTextBox.Size = new System.Drawing.Size(393, 32);
             this.eTaskSearchTextBox.TabIndex = 91;
             this.eTaskSearchTextBox.Text = "Enter Name";
+            this.eTaskSearchTextBox.Enter += new System.EventHandler(this.eTaskSearchTextBox_Enter);
+            this.eTaskSearchTextBox.Leave += new System.EventHandler(this.eTaskSearchTextBox_Leave);
             // 
             // eTaskDataGridView1
             // 
@@ -157,7 +159,7 @@
             this.eTaskDataGridView1.ReadOnly = true;
             this.eTaskDataGridView1.RowHeadersWidth = 51;
             this.eTaskDataGridView1.RowTemplate.Height = 24;
-            this.eTaskDataGridView1.Size = new System.Drawing.Size(822, 373);
+            this.eTaskDataGridView1.Size = new System.Drawing.Size(1205, 485);
             this.eTaskDataGridView1.TabIndex = 86;
             this.eTaskDataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.eTaskDataGridView1_CellContentClick);
             // 
@@ -176,7 +178,7 @@
             // 
             this.eTaskStatusGroupBox1.Controls.Add(this.completedRadioButton);
             this.eTaskStatusGroupBox1.Controls.Add(this.pendingRadioButton);
-            this.eTaskStatusGroupBox1.Location = new System.Drawing.Point(463, 196);
+            this.eTaskStatusGroupBox1.Location = new System.Drawing.Point(878, 197);
             this.eTaskStatusGroupBox1.Name = "eTaskStatusGroupBox1";
             this.eTaskStatusGroupBox1.Size = new System.Drawing.Size(271, 103);
             this.eTaskStatusGroupBox1.TabIndex = 103;
@@ -212,7 +214,7 @@
             this.Controls.Add(this.eTaskDataGridView1);
             this.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "EmployeeTask";
-            this.Size = new System.Drawing.Size(827, 776);
+            this.Size = new System.Drawing.Size(1207, 877);
             this.Load += new System.EventHandler(this.EmployeeTask_Load);
             ((System.ComponentModel.ISupportInitialize)(this.eTaskDataGridView1)).EndInit();
             this.eTaskStatusGroupBox1.ResumeLayout(false);

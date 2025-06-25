@@ -135,6 +135,7 @@
             this.deptNameTextBox.Name = "deptNameTextBox";
             this.deptNameTextBox.Size = new System.Drawing.Size(274, 32);
             this.deptNameTextBox.TabIndex = 57;
+            this.deptNameTextBox.Enter += new System.EventHandler(this.deptNameTextBox_Enter);
             // 
             // deptNameLabel
             // 

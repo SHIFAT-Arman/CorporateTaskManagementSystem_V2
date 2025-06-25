@@ -246,7 +246,7 @@ namespace CorporateTaskManagementSystem_V2.View
                 Model.Task sf = tc.Search(taskId);
                 if (sf == null)
                 {
-                    MessageBox.Show("task does not exist broski");
+                    MessageBox.Show("task does not exist");
 
                 }
                 else

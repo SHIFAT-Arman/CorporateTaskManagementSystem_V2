@@ -54,7 +54,7 @@
             this.teamNameTextBox.Name = "teamNameTextBox";
             this.teamNameTextBox.Size = new System.Drawing.Size(274, 32);
             this.teamNameTextBox.TabIndex = 67;
-            this.teamNameTextBox.TextChanged += new System.EventHandler(this.teamNameTextBox_TextChanged);
+            this.teamNameTextBox.Enter += new System.EventHandler(this.teamNameTextBox_Enter);
             // 
             // teamNameLabel
             // 
@@ -141,11 +141,12 @@
             this.TeamsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TeamsDataGridView.Location = new System.Drawing.Point(2, 304);
             this.TeamsDataGridView.Name = "TeamsDataGridView";
+            this.TeamsDataGridView.ReadOnly = true;
             this.TeamsDataGridView.RowHeadersWidth = 51;
             this.TeamsDataGridView.RowTemplate.Height = 24;
             this.TeamsDataGridView.Size = new System.Drawing.Size(1509, 639);
             this.TeamsDataGridView.TabIndex = 58;
-            this.TeamsDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.TeamsDataGridView_CellMouseClick);
+            this.TeamsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TeamsDataGridView_CellClick);
             // 
             // chooseDeptLabel
             // 
@@ -158,6 +159,7 @@
             // 
             // chooseDeptComboBox
             // 
+            this.chooseDeptComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.chooseDeptComboBox.FormattingEnabled = true;
             this.chooseDeptComboBox.Location = new System.Drawing.Point(688, 205);
             this.chooseDeptComboBox.Name = "chooseDeptComboBox";
