@@ -29,22 +29,22 @@
         private void InitializeComponent()
         {
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.eTaskTeamComboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.teamNameTextBox = new System.Windows.Forms.TextBox();
+            this.eTaskDateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.eTaskNameTextBox = new System.Windows.Forms.TextBox();
             this.teamNameLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.SearchTextBox = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.eTaskSearchBtn = new System.Windows.Forms.Button();
+            this.eTaskUpdateBtn = new System.Windows.Forms.Button();
+            this.eTaskSearchTextBox = new System.Windows.Forms.TextBox();
+            this.eTaskDataGridView1 = new System.Windows.Forms.DataGridView();
             this.pendingRadioButton = new System.Windows.Forms.RadioButton();
-            this.statusGroupBox1 = new System.Windows.Forms.GroupBox();
+            this.eTaskStatusGroupBox1 = new System.Windows.Forms.GroupBox();
             this.completedRadioButton = new System.Windows.Forms.RadioButton();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.statusGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.eTaskDataGridView1)).BeginInit();
+            this.eTaskStatusGroupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label4
@@ -56,17 +56,17 @@
             this.label4.TabIndex = 101;
             this.label4.Text = "Choose Team";
             // 
-            // comboBox1
+            // eTaskTeamComboBox1
             // 
-            this.comboBox1.Enabled = false;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.eTaskTeamComboBox1.Enabled = false;
+            this.eTaskTeamComboBox1.FormattingEnabled = true;
+            this.eTaskTeamComboBox1.Items.AddRange(new object[] {
             "Website Designer",
             "Data Analyst"});
-            this.comboBox1.Location = new System.Drawing.Point(463, 131);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(271, 32);
-            this.comboBox1.TabIndex = 100;
+            this.eTaskTeamComboBox1.Location = new System.Drawing.Point(463, 131);
+            this.eTaskTeamComboBox1.Name = "eTaskTeamComboBox1";
+            this.eTaskTeamComboBox1.Size = new System.Drawing.Size(271, 32);
+            this.eTaskTeamComboBox1.TabIndex = 100;
             // 
             // label2
             // 
@@ -77,19 +77,19 @@
             this.label2.TabIndex = 99;
             this.label2.Text = "Assign Date";
             // 
-            // dateTimePicker1
+            // eTaskDateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(69, 223);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(275, 32);
-            this.dateTimePicker1.TabIndex = 98;
+            this.eTaskDateTimePicker1.Location = new System.Drawing.Point(69, 223);
+            this.eTaskDateTimePicker1.Name = "eTaskDateTimePicker1";
+            this.eTaskDateTimePicker1.Size = new System.Drawing.Size(275, 32);
+            this.eTaskDateTimePicker1.TabIndex = 98;
             // 
-            // teamNameTextBox
+            // eTaskNameTextBox
             // 
-            this.teamNameTextBox.Location = new System.Drawing.Point(70, 132);
-            this.teamNameTextBox.Name = "teamNameTextBox";
-            this.teamNameTextBox.Size = new System.Drawing.Size(274, 32);
-            this.teamNameTextBox.TabIndex = 95;
+            this.eTaskNameTextBox.Location = new System.Drawing.Point(70, 132);
+            this.eTaskNameTextBox.Name = "eTaskNameTextBox";
+            this.eTaskNameTextBox.Size = new System.Drawing.Size(274, 32);
+            this.eTaskNameTextBox.TabIndex = 95;
             // 
             // teamNameLabel
             // 
@@ -118,43 +118,48 @@
             this.button6.TabIndex = 92;
             this.button6.Text = "Refresh";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // button5
+            // eTaskSearchBtn
             // 
-            this.button5.Location = new System.Drawing.Point(131, 353);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(89, 32);
-            this.button5.TabIndex = 90;
-            this.button5.Text = "Search";
-            this.button5.UseVisualStyleBackColor = true;
+            this.eTaskSearchBtn.Location = new System.Drawing.Point(131, 353);
+            this.eTaskSearchBtn.Name = "eTaskSearchBtn";
+            this.eTaskSearchBtn.Size = new System.Drawing.Size(89, 32);
+            this.eTaskSearchBtn.TabIndex = 90;
+            this.eTaskSearchBtn.Text = "Search";
+            this.eTaskSearchBtn.UseVisualStyleBackColor = true;
+            this.eTaskSearchBtn.Click += new System.EventHandler(this.eTaskSearchBtn_Click);
             // 
-            // button3
+            // eTaskUpdateBtn
             // 
-            this.button3.Location = new System.Drawing.Point(26, 353);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(89, 32);
-            this.button3.TabIndex = 88;
-            this.button3.Text = "Update";
-            this.button3.UseVisualStyleBackColor = true;
+            this.eTaskUpdateBtn.Location = new System.Drawing.Point(26, 353);
+            this.eTaskUpdateBtn.Name = "eTaskUpdateBtn";
+            this.eTaskUpdateBtn.Size = new System.Drawing.Size(89, 32);
+            this.eTaskUpdateBtn.TabIndex = 88;
+            this.eTaskUpdateBtn.Text = "Update";
+            this.eTaskUpdateBtn.UseVisualStyleBackColor = true;
+            this.eTaskUpdateBtn.Click += new System.EventHandler(this.eTaskUpdateBtn_Click);
             // 
-            // SearchTextBox
+            // eTaskSearchTextBox
             // 
-            this.SearchTextBox.ForeColor = System.Drawing.Color.Silver;
-            this.SearchTextBox.Location = new System.Drawing.Point(226, 354);
-            this.SearchTextBox.Name = "SearchTextBox";
-            this.SearchTextBox.Size = new System.Drawing.Size(393, 32);
-            this.SearchTextBox.TabIndex = 91;
-            this.SearchTextBox.Text = "Enter Name";
+            this.eTaskSearchTextBox.ForeColor = System.Drawing.Color.Silver;
+            this.eTaskSearchTextBox.Location = new System.Drawing.Point(226, 354);
+            this.eTaskSearchTextBox.Name = "eTaskSearchTextBox";
+            this.eTaskSearchTextBox.Size = new System.Drawing.Size(393, 32);
+            this.eTaskSearchTextBox.TabIndex = 91;
+            this.eTaskSearchTextBox.Text = "Enter Name";
             // 
-            // dataGridView1
+            // eTaskDataGridView1
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(2, 392);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(822, 373);
-            this.dataGridView1.TabIndex = 86;
+            this.eTaskDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.eTaskDataGridView1.Location = new System.Drawing.Point(2, 392);
+            this.eTaskDataGridView1.Name = "eTaskDataGridView1";
+            this.eTaskDataGridView1.ReadOnly = true;
+            this.eTaskDataGridView1.RowHeadersWidth = 51;
+            this.eTaskDataGridView1.RowTemplate.Height = 24;
+            this.eTaskDataGridView1.Size = new System.Drawing.Size(822, 373);
+            this.eTaskDataGridView1.TabIndex = 86;
+            this.eTaskDataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.eTaskDataGridView1_CellContentClick);
             // 
             // pendingRadioButton
             // 
@@ -167,16 +172,16 @@
             this.pendingRadioButton.Text = "Pending";
             this.pendingRadioButton.UseVisualStyleBackColor = true;
             // 
-            // statusGroupBox1
+            // eTaskStatusGroupBox1
             // 
-            this.statusGroupBox1.Controls.Add(this.completedRadioButton);
-            this.statusGroupBox1.Controls.Add(this.pendingRadioButton);
-            this.statusGroupBox1.Location = new System.Drawing.Point(463, 196);
-            this.statusGroupBox1.Name = "statusGroupBox1";
-            this.statusGroupBox1.Size = new System.Drawing.Size(271, 103);
-            this.statusGroupBox1.TabIndex = 103;
-            this.statusGroupBox1.TabStop = false;
-            this.statusGroupBox1.Text = "Status";
+            this.eTaskStatusGroupBox1.Controls.Add(this.completedRadioButton);
+            this.eTaskStatusGroupBox1.Controls.Add(this.pendingRadioButton);
+            this.eTaskStatusGroupBox1.Location = new System.Drawing.Point(463, 196);
+            this.eTaskStatusGroupBox1.Name = "eTaskStatusGroupBox1";
+            this.eTaskStatusGroupBox1.Size = new System.Drawing.Size(271, 103);
+            this.eTaskStatusGroupBox1.TabIndex = 103;
+            this.eTaskStatusGroupBox1.TabStop = false;
+            this.eTaskStatusGroupBox1.Text = "Status";
             // 
             // completedRadioButton
             // 
@@ -192,25 +197,26 @@
             // EmployeeTask
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.Controls.Add(this.statusGroupBox1);
+            this.Controls.Add(this.eTaskStatusGroupBox1);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.eTaskTeamComboBox1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.teamNameTextBox);
+            this.Controls.Add(this.eTaskDateTimePicker1);
+            this.Controls.Add(this.eTaskNameTextBox);
             this.Controls.Add(this.teamNameLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.SearchTextBox);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.eTaskSearchBtn);
+            this.Controls.Add(this.eTaskUpdateBtn);
+            this.Controls.Add(this.eTaskSearchTextBox);
+            this.Controls.Add(this.eTaskDataGridView1);
             this.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "EmployeeTask";
             this.Size = new System.Drawing.Size(827, 776);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.statusGroupBox1.ResumeLayout(false);
-            this.statusGroupBox1.PerformLayout();
+            this.Load += new System.EventHandler(this.EmployeeTask_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.eTaskDataGridView1)).EndInit();
+            this.eTaskStatusGroupBox1.ResumeLayout(false);
+            this.eTaskStatusGroupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -219,19 +225,19 @@
         #endregion
 
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox eTaskTeamComboBox1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.TextBox teamNameTextBox;
+        private System.Windows.Forms.DateTimePicker eTaskDateTimePicker1;
+        private System.Windows.Forms.TextBox eTaskNameTextBox;
         private System.Windows.Forms.Label teamNameLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox SearchTextBox;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button eTaskSearchBtn;
+        private System.Windows.Forms.Button eTaskUpdateBtn;
+        private System.Windows.Forms.TextBox eTaskSearchTextBox;
+        private System.Windows.Forms.DataGridView eTaskDataGridView1;
         private System.Windows.Forms.RadioButton pendingRadioButton;
-        private System.Windows.Forms.GroupBox statusGroupBox1;
+        private System.Windows.Forms.GroupBox eTaskStatusGroupBox1;
         private System.Windows.Forms.RadioButton completedRadioButton;
     }
 }

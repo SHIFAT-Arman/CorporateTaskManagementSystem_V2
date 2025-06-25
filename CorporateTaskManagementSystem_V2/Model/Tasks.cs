@@ -72,9 +72,16 @@ namespace CorporateTaskManagementSystem_V2.Model
             cmd.Parameters.AddWithValue("@taskName", task.TaskName);
             cmd.Parameters.AddWithValue("@taskAssignedDate", task.TaskAssignedDate);
             cmd.Parameters.AddWithValue("@taskStatus", task.TaskStatus ?? "Pending");
-            cmd.Parameters.AddWithValue("@teamId", task.TeamId ?? string.Empty);
+            if (string.IsNullOrEmpty(task.TeamId))
+            {
+                cmd.Parameters.AddWithValue("@teamId", DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@teamId", task.TeamId ?? string.Empty);
+            }
 
-            cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.Text;
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
             cmd.Connection.Close();
